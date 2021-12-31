@@ -74,7 +74,7 @@ class ProductsSeeder extends Seeder
             'category_id' => 2,
             'name' => 'NORTH BURGER',
             'description' => 'Wołowina, boczek, ser edam, ser cheddar, świeży ogórek, majonez musztardowy',
-            'photo' => 'b_north.jp',
+            'photo' => 'b_north.jpg',
             'price' => 31.90
         ]);
         DB::table('products')->insert([
@@ -116,7 +116,7 @@ class ProductsSeeder extends Seeder
             'category_id' => 2,
             'name' => 'SOUTH BURGER',
             'description' => 'Wolowina, pieczarki smażone, cebula smażona, cebula świeża, pomidory, sałata, sos BBQ, majonez musztardowy',
-            'photo' => 'b_south.jp',
+            'photo' => 'b_south.jpg',
             'price' => 28.90
         ]);
         DB::table('products')->insert([

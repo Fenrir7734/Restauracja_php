@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,4 @@ Route::get('/gallery', function () {
     return view('/gallery');
 })->name('gallery');
 
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
+Route::get('/menu', [MenuController::class, 'index'])->name('menu');
