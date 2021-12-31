@@ -11,6 +11,20 @@
             <li class="nav-item"><a class="nav-link slider" href="{{ route('contact') }}">KONTAKT</a></li>
             <li class="nav-item"><a class="nav-link slider" href="game.html">GRA</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}"><i class="bi bi-cart"></i></a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-person"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @guest
+                        <a class="dropdown-item" href="#">Zaloguj się</a>
+                        <a class="dropdown-item" href="#">Zarejestruj się</a>
+                    @endguest
+                    @auth
+                        <a class=""></a>
+                    @endauth
+                </div>
+            </li>
         </ul>
     </div>
 </nav>
