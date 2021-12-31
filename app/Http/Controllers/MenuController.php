@@ -17,4 +17,8 @@ class MenuController extends Controller
     public function cart() {
         return view('cart');
     }
+
+    public function addToCart($id) {
+        echo "<script>console.log('dodane $id')</script>";
+    }
 }

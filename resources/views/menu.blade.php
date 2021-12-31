@@ -57,10 +57,9 @@
                             <div class="col-6">
                                 <input id="menu-product-{{ $product->id }}-input" type="number" class="form-control" min="1"  max="99" value="1">
                                 <label for="menu-product-{{ $product->id }}-input"></label>
-                                <button class="input-submit btn btn-secondar cart-button">
+                                <a class="input-submit btn btn-secondar cart-button" href="{{ url('add-to-cart/'.$product->id) }}}">
                                     <i class="bi bi-cart"></i>
-                                    <span id="menu-product-{{ $product->id }}-input-a" style="display: none"></span>
-                                </button>
+                                </a>
                             </div>
                             <div class="col-6">
                                 <p class="menu-popup-price">

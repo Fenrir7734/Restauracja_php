@@ -42,3 +42,4 @@ Route::get('/gallery', function () {
 })->name('gallery');
 
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
+Route::get('/add-to-cart/{id}', [MenuController::class, 'addToCart'])->name('add-to-cart');
