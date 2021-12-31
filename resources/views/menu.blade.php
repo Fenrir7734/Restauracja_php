@@ -4,27 +4,43 @@
     @include('layouts.navbar')
     <main class="container-fluid mp-side-zero" style="width: 100%; margin-top: 10vh">
         <div class="row align-items-center mp-side-zero" style="width: 100%">
-            <div class="menu-section">
-                <div class="row justify-content-center">
-                    @foreach($products as $product)
-                        <div class="col-xxl-3 col-xl-5 col-md-10 col-sm-12 menu-box">
-                            <a data-fancybox data-src="#menu-product-{{ $product->id }}">
-                                <div class="align-items-center">
-                                    <img class="menu-box-img" src="{{ URL::asset('img/menu/meals/' . $product->photo) }}" alt="{{ $product->name }}">
-                                </div>
-                                <div class="menu-box-content">
-                                    <h3 class="menu-box-header">
-                                        {{ $product->name }}
-                                    </h3>
-                                    <p class="menu-box-description">
-                                        {{ $product->description }}
-                                    </p>
-                                </div>
-                            </a>
+            @foreach($categories as $category)
+                <div class="menu-section-head-img-container mp-side-zero">
+                    <img src="{{ URL::asset('img/menu/banners/' . $category->photo) }}" alt="{{ $category->name }}">
+                    <div class="overlay">
+                        <div class="menu-header-text-container">
+                            <h1>
+                                {{ $category->name }}
+                            </h1>
                         </div>
-                    @endforeach
+                    </div>
                 </div>
-            </div>
+                <div class="menu-section">
+                    <div class="row justify-content-center">
+                            @foreach($products as $product)
+                                @if($category->id == $product->category_id)
+                                <div class="col-xxl-3 col-xl-5 col-md-10 col-sm-12 menu-box">
+                                    <a data-fancybox data-src="#menu-product-{{ $product->id }}">
+                                        <div class="align-items-center">
+                                            <img class="menu-box-img" src="{{ URL::asset('img/menu/meals/' . $product->photo) }}" alt="{{ $product->name }}">
+                                        </div>
+                                        <div class="menu-box-content">
+                                            <h3 class="menu-box-header">
+                                                {{ $product->name }}
+                                            </h3>
+                                            <p class="menu-box-description">
+                                                {{ $product->description }}
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                @else
+                                    @continue
+                                @endif
+                            @endforeach
+                    </div>
+                </div>
+            @endforeach
             @foreach($products as $product)
                 <div id="menu-product-{{ $product->id }}" class="menu-popup" style="padding: 0; background: #191919;">
                     <div class="menu-popup-img-container">
