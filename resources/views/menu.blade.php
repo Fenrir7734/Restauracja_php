@@ -43,7 +43,7 @@
                     </div>
                 @endforeach
                 @foreach($products as $product)
-                    <div id="menu-product-{{ $product->id }}" class="menu-popup" style="padding: 0; background: #191919;">
+                    <div id="menu-product-{{ $product->id }}" class="menu-popup" style="padding: 0; background: #191919;" >
                         <div class="menu-popup-img-container">
                             <img class="menu-popup-img" src="{{ URL::asset('img/menu/meals/' . $product->photo) }}" alt="{{ $product->name }}">
                         </div>
@@ -55,12 +55,12 @@
                                 {{ $product->description }}
                             </p>
                             <div class="row align-items-center">
-                                <div class="col-6">
-                                    <input id="menu-product-{{ $product->id }}-input" type="number" class="form-control" min="1"  max="99" value="1">
+                                <div class="col-6" data-id="{{ $product->id }}">
+                                    <input id="menu-product-{{ $product->id }}-input" type="number" class="form-control quantity" min="1"  max="99" value="1">
                                     <label for="menu-product-{{ $product->id }}-input"></label>
-                                    <a class="input-submit btn btn-secondar cart-button" href="{{ url('add-to-cart/'.$product->id) }}}">
+                                    <button class="input-submit btn btn-secondar cart-button add-to-cart">
                                         <i class="bi bi-cart"></i>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="col-6">
                                     <p class="menu-popup-price">
@@ -74,6 +74,25 @@
                         </div>
                     </div>
                 @endforeach
+                <script type="text/javascript">
+                    $('.add-to-cart').click(function (event) {
+                        event.preventDefault();
+                        var element = $(this);
+
+                        $.ajax({
+                            url: '{{ route('add-to-cart') }}',
+                            method: "patch",
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id: element.parents("div").attr("data-id"),
+                                quantity: element.parents("div").find(".quantity").val()
+                            },
+                            success: function (response) {
+                                window.location.reload();
+                            }
+                        })
+                    })
+                </script>
             @else
                 <h2>Brak dostępnych produktów</h2>
             @endif

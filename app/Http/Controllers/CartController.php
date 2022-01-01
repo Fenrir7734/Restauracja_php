@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function addToCart($id) {
+    public function addToCart(Request $request) {
+        if ($request->id && $request->quantity) {
+
+        }
+        $id = $request->id;
+        $quantity = $request->quantity;
         $product = Product::find($id);
 
         if (!$product) {
@@ -19,17 +24,16 @@ class CartController extends Controller
             $cart[$id] = [
                 $id => [
                     'name' => $product->name,
-                    'quantity' => 1,
+                    'quantity' => $quantity,
                     'price' => $product->price,
                     'total_price' => $product->price
                 ]
             ];
         } else {
-            $cart[$id][$id]['quantity']++;
+            $cart[$id][$id]['quantity'] += $quantity;
             $cart[$id][$id]['total_price'] = $cart[$id][$id]['price'] * $cart[$id][$id]['quantity'];
         }
         session()->put('cart', $cart);
-        return redirect()->back();
     }
 
     public function removeAll() {

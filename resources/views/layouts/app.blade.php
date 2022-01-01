@@ -17,7 +17,12 @@
         <script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
     @endif
 </head>
-        @if (Route::is('booking') || Route::is('cart'))
+        @if (Route::is('booking')
+                || Route::is('cart')
+                || Route::is('order')
+                || Route::is('login')
+                || Route::is('register')
+                )
             <body class="booking-background">
         @else
             <body>

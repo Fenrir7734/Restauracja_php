@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use \App\Http\Controllers\CartController;
+use \App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,7 +43,10 @@ Route::get('/gallery', function () {
 })->name('gallery');
 
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
-Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');
+Route::patch('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::get('/remove-all', [CartController::class, 'removeAll'])->name('remove-all');
 Route::patch('/update-cart', [CartController::class, 'updateCart'])->name('update-cart');
 Route::delete('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
+Route::get('/order', function () {
+    return view('/order');
+})->name('order');

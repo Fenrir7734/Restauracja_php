@@ -44,22 +44,22 @@
                                         <a class="btn form-control input-submit" href="{{ url('remove-all') }}">Usuń Wszystkie</a>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <a class="btn form-control input-submit" href="{{ url('') }}">Kontynuj</a>
+                                        <a class="btn form-control input-submit" href="{{ url('order') }}">Kontynuj</a>
                                     </div>
                                 </div>
 
                                 <script type="text/javascript">
                                     $(".update-cart").change(function (event) {
                                         event.preventDefault();
-                                        var ele = $(this);
+                                        var element = $(this);
 
                                         $.ajax({
                                            url: '{{ route('update-cart') }}',
                                            method: "patch",
                                            data: {
                                                _token: '{{ csrf_token() }}',
-                                               id: ele.parents("tr").attr("data-id"),
-                                               quantity: ele.parents("tr").find(".quantity").val()
+                                               id: element.parents("tr").attr("data-id"),
+                                               quantity: element.parents("tr").find(".quantity").val()
                                            },
                                            success: function (response) {
                                                window.location.reload();
