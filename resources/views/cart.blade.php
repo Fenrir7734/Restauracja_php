@@ -14,6 +14,30 @@
                             </h2>
                         </header>
                         <div id="cart">
+                            @if(session('cart'))
+                                <table class="table cart-table align-middle" id="cart-table">
+                                    @foreach(session('cart') as $id => $content)
+                                        <tr>
+                                            <td class="cart-table-checkbox">
+                                                <input type="checkbox" value="{{ $id }}">
+                                            </td>
+                                            <td class="cart-table-name">
+                                                {{ $content[$id]['name'] }}
+                                            </td>
+                                            <td class="cart-table-quantity">
+                                                <input type="number" value="{{ $content[$id]['quantity'] }}" class="cart-table-quantity">
+                                            </td>
+                                            <td class="cart-table-price">
+                                                {{ $content[$id]['price'] }} zł
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            @else
+                                <div class='row cart-empty'>
+                                    <h2>W twoim koszyku nie ma żadnych produktów!</h2>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

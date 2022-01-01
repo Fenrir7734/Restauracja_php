@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 
@@ -14,13 +15,12 @@ use App\Http\Controllers\MenuController;
 |
 */
 
-Route::get('/welcome', function () {
-    return view('/welcome');
-})->name('welcome');
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('index');
+})->name('index');
 Route::get('/index', function () {
     return view('index');
 })->name('index');
