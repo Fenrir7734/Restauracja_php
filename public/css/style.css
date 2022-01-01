@@ -569,10 +569,22 @@ textarea {
     text-align: right;
 }
 
-.cart-container input[type="button"] {
+.cart-container input[type="button"],
+.cart-container a {
     display: inline-block;
     width: 100%;
     margin: 5px auto;
+}
+
+.cart-container input::-webkit-outer-spin-button,
+.cart-container input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.cart-container input[type=number] {
+    -moz-appearance: textfield;
 }
 
 .cart-empty {

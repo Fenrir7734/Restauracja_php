@@ -9,4 +9,12 @@ class Product extends Model
 {
     use HasFactory;
     protected $table = 'products';
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function cartContent() {
+        return $this->hasMany(CartContent::class);
+    }
 }
