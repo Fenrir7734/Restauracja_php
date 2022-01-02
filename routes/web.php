@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use \App\Http\Controllers\CartController;
 use \App\Http\Controllers\OrderController;
+use \App\Http\Controllers\Auth\LoginController;
+use \App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +19,9 @@ use \App\Http\Controllers\OrderController;
 */
 
 Auth::routes();
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', function () {

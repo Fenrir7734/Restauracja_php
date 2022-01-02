@@ -17,11 +17,11 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     @guest
-                        <a class="dropdown-item" href="#">Zaloguj się</a>
-                        <a class="dropdown-item" href="#">Zarejestruj się</a>
+                        <a class="dropdown-item" href="{{ route('login') }}">Zaloguj się</a>
+                        <a class="dropdown-item" href="{{ route('register') }}">Zarejestruj się</a>
                     @endguest
                     @auth
-                        <a class=""></a>
+                        <a class="dropdown-item" href="{{ route('logout') }}">Wyloguj</a>
                     @endauth
                 </div>
             </li>
