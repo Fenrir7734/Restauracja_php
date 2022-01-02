@@ -12,7 +12,7 @@
 
     <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
 
-    @if (Route::is('gallery') || Route::is('menu'))
+    @if (Route::is('gallery') || Route::is('menu') || Route::is('history-order'))
         <link href="{{ asset('css/jquery.fancybox.min.css') }}" rel="stylesheet">
         <script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
     @endif
@@ -26,7 +26,8 @@
                 || Route::is('store-order')
                 || Route::is('create-order')
                 || Route::is('error')
-                )
+                || Route::is('history-order')
+                || Route::is('order-details'))
             <body class="booking-background">
         @else
             <body>

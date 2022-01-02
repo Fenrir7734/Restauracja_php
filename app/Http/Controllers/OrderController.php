@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\CartContent;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,7 +30,32 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('order');
+        $cart = Cart::where('user_id', \Auth::user()->id)
+            ->orderBy('ordered_at')
+            ->get();
+        return view('order_history', ['orders' => $cart]);
+    }
+
+    public function content($id) {
+        $cart = Cart::find($id);
+        $adress = Address::find($cart->address_id);
+        $products = DB::table('cart_content')
+            ->select(
+                'products.name',
+                'products.price',
+                'cart_content.quantity',
+                'cart_content.cart_id'
+            )
+            ->join('products', 'cart_content.product_id', '=', 'products.id')
+            ->where('cart_id', $id)
+            ->get();
+        return view(
+            'order_details',
+            [
+                'cart' => $cart,
+                'products' => $products,
+                'address' => $adress
+            ]);
     }
 
     /**
@@ -39,7 +66,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //            'first-name' => 'required|min:10|max:255',
         $validator = Validator::make($request->all(), [
             'first-name' => [
                 'required',
@@ -68,7 +94,8 @@ class OrderController extends Controller
             'flat' => [
                 'nullable',
                 'integer',
-                'max:6',
+                'min: 1',
+                'max:9999',
                 'regex:/^[0-9]{0,3}$/'
             ],
             'postcode' => [

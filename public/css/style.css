@@ -640,6 +640,10 @@ textarea {
     width: 30%;
 }
 
+.order-history * {
+    color: white !important;
+}
+
 @media (max-width: 1200px) {
     footer {
         text-align: center;
@@ -744,6 +748,10 @@ textarea {
 
     nav .dropdown-menu {
         background-color: transparent;
+    }
+
+    .order-history * {
+        font-size: 12px;
     }
 }
 
