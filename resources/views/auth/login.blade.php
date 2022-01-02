@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="row col-md-12" style="padding-top: 20px; margin: 0;">
                                     <input type="submit" id="booking-submit-button" class="form-control input-submit" value="Zaloguj się" style="margin-bottom: 10px;">
-                                    <input type="button" class="form-control input-submit" value="Zarejestruj się" onclick="location.href='./register.html'">
+                                    <input type="button" class="form-control input-submit" value="Zarejestruj się"  onclick="window.location='{{ url("register") }}'">
                                 </div>
                             </form>
                         </article>

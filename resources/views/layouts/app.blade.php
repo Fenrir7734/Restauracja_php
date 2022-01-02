@@ -22,6 +22,10 @@
                 || Route::is('order')
                 || Route::is('login')
                 || Route::is('register')
+                || Route::is('order-complete')
+                || Route::is('store-order')
+                || Route::is('create-order')
+                || Route::is('error')
                 )
             <body class="booking-background">
         @else

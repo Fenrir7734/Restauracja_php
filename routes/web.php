@@ -24,8 +24,18 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => ['auth']], function () {
+    Route::post('/create-order', [OrderController::class, 'store'])->name('store-order');
+    Route::get('/create-order', [OrderController::class, 'create'])->name('create-order');
 
 });
+
+Route::get('/order-complete', function () {
+    return view('/order_complete');
+})->name('order-complete');
+
+Route::get('/error', function () {
+    return view('/error');
+})->name('error');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', function () {
@@ -57,5 +67,3 @@ Route::get('/remove-all', [CartController::class, 'removeAll'])->name('remove-al
 Route::patch('/update-cart', [CartController::class, 'updateCart'])->name('update-cart');
 Route::delete('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
 
-Route::post('/create', [OrderController::class, 'store'])->name('store-order');
-Route::get('/create', [OrderController::class, 'create'])->name('create-order');

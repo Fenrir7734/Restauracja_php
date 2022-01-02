@@ -103,18 +103,24 @@ class OrderController extends Controller
             return redirect('login');
         }
 
-
-
         $address = $this->buildAddress($request);
-        $address->save();
+        if (!$address->save()) {
+            return \redirect('error');
+        }
 
         $cart = $this->buildCart($request, $address->id);
-        $address->cart()->save($cart);
+        if (!$address->cart()->save($cart)) {
+            return \redirect('error');
+        }
 
         $cartFromSession = session()->get('cart', []);
         foreach ($cartFromSession as $id => $content) {
-            $cart->content()->save($this->buildCartContent($id, $content));
+            if (!$cart->content()->save($this->buildCartContent($id, $content))) {
+                return \redirect('error');
+            }
         }
+
+        return redirect()->route('order-complete');
     }
 
     private function buildAddress(Request $request) {
