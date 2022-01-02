@@ -20,9 +20,11 @@ class Address extends Migration
             $table->string('last_name', 40);
             $table->string('street', 40);
             $table->string('house', 6);
-            $table->string('flat', 6);
+            $table->string('flat', 6)->nullable();
             $table->char('post_code', 5);
+            $table->char('city', 40);
             $table->char('phone', 9);
+            $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

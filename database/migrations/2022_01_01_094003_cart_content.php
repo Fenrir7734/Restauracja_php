@@ -19,6 +19,7 @@ class CartContent extends Migration
             $table->integer('product_id')->unsigned();
             $table->tinyInteger('quantity');
             $table->decimal('amount', 6, 2);
+            $table->timestamps();
             $table->foreign('cart_id')
                 ->references('id')
                 ->on('cart')

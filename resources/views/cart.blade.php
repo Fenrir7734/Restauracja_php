@@ -44,7 +44,7 @@
                                         <a class="btn form-control input-submit" href="{{ url('remove-all') }}">Usuń Wszystkie</a>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <a class="btn form-control input-submit" href="{{ url('order') }}">Kontynuj</a>
+                                        <a class="btn form-control input-submit" href="{{ route('create-order') }}">Kontynuj</a>
                                     </div>
                                 </div>
 

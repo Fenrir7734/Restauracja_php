@@ -36,58 +36,78 @@
                                         <td class="cart-table-price">{{ number_format($sum, 2) }} zł</td>
                                     </tr>
                                 </table>
-                                    <form>
+                                    <form role="form" method="POST" action="{{ route('store-order') }}" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        @csrf
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="first-name">Imię:</label>
-                                                <input type="text" id="first-name" class="form-control">
-                                                <div id="first-name-error" class="form-error"></div>
+                                                <input type="text" id="first-name" name="first-name" class="form-control" value="{{ old('first-name') }}">
+                                                @if($errors->has('first-name'))
+                                                    <div class="form-error">{{ $errors->first('first-name') }}</div>
+                                                @endif
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="last-name">Nazwisko:</label>
-                                                <input type="text" id="last-name" class="form-control">
-                                                <div id="last-name-error" class="form-error"></div>
+                                                <input type="text" id="last-name" name="last-name" class="form-control">
+                                                @if($errors->has('last-name'))
+                                                    <div class="form-error">{{ $errors->first('last-name') }}</div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="street">Ulica:</label>
-                                                <input type="text" id="street" class="form-control">
-                                                <div id="street-error" class="form-error"></div>
+                                                <input type="text" id="street" name="street" class="form-control">
+                                                @if($errors->has('street'))
+                                                    <div class="form-error">{{ $errors->first('street') }}</div>
+                                                @endif
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="house">Nr domu:</label>
-                                                <input type="text" id="house" class="form-control">
-                                                <div id="house-error" class="form-error"></div>
+                                                <input type="text" id="house" name="house" class="form-control">
+                                                @if($errors->has('house'))
+                                                    <div class="form-error">{{ $errors->first('house') }}</div>
+                                                @endif
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="flat">Nr mieszkania:</label>
-                                                <input type="text" id="flat" class="form-control">
-                                                <div id="flat-error" class="form-error"></div>
+                                                <input type="text" id="flat" name="flat"  class="form-control">
+                                                @if($errors->has('flat'))
+                                                    <div class="form-error">{{ $errors->first('flat') }}</div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="postcode">Kod pocztowy:</label>
-                                                <input type="text" id="postcode" class="form-control">
-                                                <div id="postcode-error" class="form-error"></div>
+                                                <input type="text" id="postcode" name="postcode" class="form-control">
+                                                @if($errors->has('postcode'))
+                                                    <div class="form-error">{{ $errors->first('postcode') }}</div>
+                                                @endif
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="city">Miejscowość:</label>
-                                                <input type="text" id="city" class="form-control">
-                                                <div id="city-error" class="form-error"></div>
+                                                <input type="text" id="city" name="city" class="form-control">
+                                                @if($errors->has('city'))
+                                                    <div class="form-error">{{ $errors->first('city') }}</div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="mail">Email:</label>
-                                                <input type="email" id="mail" class="form-control">
-                                                <div id="mail-error" class="form-error"></div>
+                                                <input type="email" id="mail" name="mail" class="form-control">
+                                                @if($errors->has('mail'))
+                                                    <div class="form-error">{{ $errors->first('mail') }}</div>
+                                                @endif
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="phone">Telefon:</label>
-                                                <input type="text" id="phone" class="form-control">
-                                                <div id="phone-error" class="form-error"></div>
+                                                <input type="text" id="phone" name="phone" class="form-control">
+                                                @if($errors->has('phone'))
+                                                    <div class="form-error">{{ $errors->first('phone') }}</div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row" style="padding-left: 12px; padding-right: 12px">
@@ -99,10 +119,10 @@
                                         </div>
                                         <div class="row justify-content-end">
                                             <div class="col-lg-3 col-md-6 col-sm-12">
-                                                <a class="btn form-control input-submit" href="{{ url('') }}">Anuluj</a>
+                                                <input type="button" class="btn form-control input-submit" href="{{ url('') }}" value="Anuluj">
                                             </div>
                                             <div class="col-lg-3 col-md-6 col-sm-12">
-                                                <a class="btn form-control input-submit" href="{{ url('') }}">Zamów</a>
+                                                <button type="submit" class="btn form-control input-submit">Zamów</button>
                                             </div>
                                         </div>
                                     </form>

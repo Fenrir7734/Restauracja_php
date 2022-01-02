@@ -28,12 +28,15 @@
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="password">Hasło</label>
-                                    <input id="password" class="form-control @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password">
+                                    <input id="password" class="form-control @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password" style="@error('password') background-color: red @enderror">
 
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                    <script>
+                                        console.log('fdasfdsf');
+                                    </script>
                                     @enderror
                                 </div>
                                 <div class="col-md-12">

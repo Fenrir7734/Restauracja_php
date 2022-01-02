@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
@@ -22,6 +23,9 @@ Auth::routes();
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+Route::group(['middleware' => ['auth']], function () {
+
+});
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', function () {
@@ -52,6 +56,6 @@ Route::patch('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to
 Route::get('/remove-all', [CartController::class, 'removeAll'])->name('remove-all');
 Route::patch('/update-cart', [CartController::class, 'updateCart'])->name('update-cart');
 Route::delete('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
-Route::get('/order', function () {
-    return view('/order');
-})->name('order');
+
+Route::post('/create', [OrderController::class, 'store'])->name('store-order');
+Route::get('/create', [OrderController::class, 'create'])->name('create-order');

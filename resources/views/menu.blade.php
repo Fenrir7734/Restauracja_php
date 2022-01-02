@@ -94,7 +94,9 @@
                     })
                 </script>
             @else
-                <h2>Brak dostępnych produktów</h2>
+                <div class="d-flex justify-content-center align-items-center" style="height: 50vh">
+                    <h2>Brak dostępnych produktów</h2>
+                </div>
             @endif
         </div>
 @endsection
