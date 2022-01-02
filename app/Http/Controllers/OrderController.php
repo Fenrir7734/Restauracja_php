@@ -96,7 +96,9 @@ class OrderController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return view('order')->withErrors($validator);
+            return \redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
         if (\Auth::user() == null) {
@@ -108,7 +110,7 @@ class OrderController extends Controller
             return \redirect('error');
         }
 
-        $cart = $this->buildCart($request, $address->id);
+        $cart = $this->buildCart($request);
         if (!$address->cart()->save($cart)) {
             return \redirect('error');
         }
@@ -143,7 +145,7 @@ class OrderController extends Controller
         return $address;
     }
 
-    private function buildCart(Request $request, $id) {
+    private function buildCart(Request $request) {
         $cartFromSession = session()->get('cart', []);
 
         $amount = 0;
@@ -152,8 +154,7 @@ class OrderController extends Controller
         }
         $cart = new Cart();
         $cart->user_id = \Auth::user()->id;
-        //$cart->address_id = $id;
-        $cart->description = $request->description;
+        $cart->description = $request->note;
         $cart->status = 1;
         $cart->amount = $amount;
         $cart->ordered_at = date("Y-m-d h:m:s");

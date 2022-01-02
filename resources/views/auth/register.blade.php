@@ -19,32 +19,23 @@
                                 <div class="form-group col-md-12">
                                     <label for="name">Nazwa</label>
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @if($errors->has('email'))
+                                        <div class="form-error">{{ $errors->first('name') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="email">Adres e-mail</label>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @if($errors->has('email'))
+                                        <div class="form-error">{{ $errors->first('email') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="password">Hasło</label>
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @if($errors->has('email'))
+                                        <div class="form-error">{{ $errors->first('password') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="password-confirm">Powtórz Hasło</label>
