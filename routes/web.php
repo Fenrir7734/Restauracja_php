@@ -12,6 +12,7 @@ use \App\Http\Controllers\AddressesController;
 use \App\Http\Controllers\AdminPanelController;
 use \App\Http\Controllers\CategoriesController;
 use \App\Http\Controllers\ProductsController;
+use \App\Http\Controllers\BookingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/history-order/{filter}/{sort}', [OrderController::class, 'create'])->name('history-order');
     Route::get('/order_details/{id}', [OrderController::class, 'content'])->name('order-details');
     Route::patch('/filter', [OrderController::class, 'filter'])->name('order-filter');
+    Route::get('/booking-history', [BookingController::class, 'index'])->name('booking-history');
+    Route::get('/booking-details/{id}', [BookingController::class, 'edit'])->name('booking-details');
+    Route::get('/booking-details-cancel/{id}', [BookingController::class, 'cancel'])->name('booking-cancel');
 });
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
@@ -58,6 +62,10 @@ Route::get('/order-complete', function () {
     return view('/order_complete');
 })->name('order-complete');
 
+Route::get('/booking-complete', function () {
+    return view('/booking_complete');
+})->name('booking-complete');
+
 Route::get('/error', function () {
     return view('/error');
 })->name('error');
@@ -69,10 +77,6 @@ Route::get('/', function () {
 Route::get('/index', function () {
     return view('index');
 })->name('index');
-
-Route::get('/booking', function () {
-    return view('booking');
-})->name('booking');
 
 Route::get('/cart', function () {
     return view('/cart');
@@ -91,4 +95,5 @@ Route::patch('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to
 Route::get('/remove-all', [CartController::class, 'removeAll'])->name('remove-all');
 Route::patch('/update-cart', [CartController::class, 'updateCart'])->name('update-cart');
 Route::delete('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
-
+Route::get('/booking', [BookingController::class, 'create'])->name('booking-create');
+Route::post("/booking", [BookingController::class, 'store'])->name('booking-store');

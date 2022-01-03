@@ -6,6 +6,8 @@ use App\Models\Address;
 use App\Models\Cart;
 use App\Models\CartContent;
 use App\Models\Product;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -205,12 +207,18 @@ class OrderController extends Controller
         foreach ($cartFromSession as $id => $content) {
             $amount += $content[$id]['total_price'];
         }
+
+        $tz = 'Europe/Warsaw';
+        $timestamp = time();
+        $dt = new DateTime("now", new DateTimeZone($tz));
+        $dt->setTimestamp($timestamp);
+
         $cart = new Cart();
         $cart->user_id = \Auth::user()->id;
         $cart->description = $request->note;
         $cart->status = 1;
         $cart->amount = $amount;
-        $cart->ordered_at = date("Y-m-d h:m:s");
+        $cart->ordered_at = $dt->format("Y-m-d H:m:s");
         return $cart;
     }
 

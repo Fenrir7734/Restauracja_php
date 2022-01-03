@@ -51,40 +51,48 @@
                                     </th>
                                     <th></th>
                                 </tr>
-                                @foreach($orders as $order)
-                                    <tr data-id="{{ $order->id }}">
-                                        <td>
-                                            {{ $order->ordered_at }}
-                                        </td>
-                                        <td>
-                                            {{ $order->amount }} zł
-                                        </td>
-                                        <td>
-                                            @switch($order->status)
-                                                @case(1)
+                            @if($orders)
+                                    @foreach($orders as $order)
+                                        <tr data-id="{{ $order->id }}">
+                                            <td>
+                                                {{ $order->ordered_at }}
+                                            </td>
+                                            <td>
+                                                {{ $order->amount }} zł
+                                            </td>
+                                            <td>
+                                                @switch($order->status)
+                                                    @case(1)
                                                     Nowe
-                                                @break
-                                                @case(2)
+                                                    @break
+                                                    @case(2)
                                                     W realizacji
-                                                @break
-                                                @case(3)
+                                                    @break
+                                                    @case(3)
                                                     Wysłane
-                                                @break
-                                                @case(4)
+                                                    @break
+                                                    @case(4)
                                                     Zakończone
-                                                @break
-                                                @default
+                                                    @break
+                                                    @default
                                                     Nieznany status
-                                                @break
-                                            @endswitch
-                                        </td>
-                                        <td style="width: 5%">
-                                            <a class="btn form-control btn-secondary cart-button input-submit" href="{{ route('order-details', $order->id) }}">
-                                                <i class="bi bi-arrows-fullscreen"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                                    @break
+                                                @endswitch
+                                            </td>
+                                            <td style="width: 5%">
+                                                <a class="btn form-control btn-secondary cart-button input-submit" href="{{ route('order-details', $order->id) }}">
+                                                    <i class="bi bi-arrows-fullscreen"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                            @else
+                                <tr style="height: 200px; text-align: center">
+                                    <td colspan="4">
+                                        <h2>Brak zamówień</h2>
+                                    </td>
+                                </tr>
+                            @endif
                             </table>
                         </div>
                     </div>
@@ -105,7 +113,7 @@
                 type: 'POST',
                 data: {
                     filter: $(this).find(':selected')[0].value,
-                    sort: $("select[name=sort]").val();
+                    sort: $("select[name=sort]").val()
                 },
             })
         })
