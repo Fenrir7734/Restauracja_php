@@ -28,12 +28,38 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($filter, $sort)
     {
-        $cart = Cart::where('user_id', \Auth::user()->id)
-            ->orderBy('ordered_at')
+        $filterStatement = ['status', '!=', $filter];
+        if ($filter === '1' || $filter == '2' || $filter == '3' || $filter == '4') {
+            $filterStatement = ['status', '=', $filter];
+        }
+
+        $sortRow = 'ordered_at';
+        $sortDirection = 'desc';
+        if ($sort === '1') {
+            $sortRow = 'ordered_at';
+            $sortDirection = 'asc';
+        } else if ($sort === '2') {
+            $sortRow = 'amount';
+            $sortDirection = 'desc';
+        } else if ($sort === '3') {
+            $sortRow = 'amount';
+            $sortDirection = 'asc';
+        }
+
+        $cart = Cart::where([
+            ['user_id', '=' ,\Auth::user()->id],
+            $filterStatement
+        ])
+            ->orderBy($sortRow, $sortDirection)
             ->get();
         return view('order_history', ['orders' => $cart]);
+    }
+
+    public function filter(Request $request) {
+        echo "<script>console.log('tu')</script>";
+        return \redirect()->route('history-order', ['filter' =>$request->filter, 'sort' => $request->sort]);
     }
 
     public function content($id) {

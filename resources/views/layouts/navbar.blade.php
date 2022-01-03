@@ -21,7 +21,7 @@
                             <a class="dropdown-item" href="{{ route('register') }}">Zarejestruj się</a>
                     @endguest
                     @auth
-                            <a class="dropdown-item" href="{{ route('history-order') }}">Zamówienia</a>
+                            <a class="dropdown-item" href="{{ route('history-order', ['filter' => 0, 'sort' => 0]) }}">Zamówienia</a>
                             <a class="dropdown-item" href="{{ route('logout') }}">Wyloguj</a>
                     @endauth
                 </div>

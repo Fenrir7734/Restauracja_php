@@ -27,8 +27,9 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name(
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/create-order', [OrderController::class, 'store'])->name('store-order');
     Route::get('/index-order', [OrderController::class, 'index'])->name('create-order');
-    Route::get('/history-order', [OrderController::class, 'create'])->name('history-order');
+    Route::get('/history-order/{filter}/{sort}', [OrderController::class, 'create'])->name('history-order');
     Route::get('/order_details/{id}', [OrderController::class, 'content'])->name('order-details');
+    Route::patch('/filter', [OrderController::class, 'filter'])->name('order-filter');
 });
 
 Route::get('/order-complete', function () {
