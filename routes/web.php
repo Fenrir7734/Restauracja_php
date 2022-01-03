@@ -9,6 +9,8 @@ use \App\Http\Controllers\OrderController;
 use \App\Http\Controllers\Auth\LoginController;
 use \App\Http\Controllers\Auth\RegisterController;
 use \App\Http\Controllers\AddressesController;
+use \App\Http\Controllers\AdminPanelController;
+use \App\Http\Controllers\CategoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +33,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/order_details/{id}', [OrderController::class, 'content'])->name('order-details');
     Route::patch('/filter', [OrderController::class, 'filter'])->name('order-filter');
 });
+
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/admin-panel', [AdminPanelController::class, 'index'])->name('admin-panel');
+    Route::get('/categories-create', [CategoriesController::class, 'create'])->name('create-category');
+    Route::post('/categories-store', [CategoriesController::class, 'store'])->name('store-category');
+    Route::get('/categories-preview', [CategoriesController::class, 'index'])->name('admin-categories-preview');
+    Route::get('/categories-delete/{id}', [CategoriesController::class, 'destroy'])->name('remove-category');
+    Route::get('/categories-edit/{id}', [CategoriesController::class, 'edit'])->name('edit-category');
+    Route::put('/categories-update/{id}', [CategoriesController::class, 'update'])->name('update-category');
+});
+
 
 Route::get('/order-complete', function () {
     return view('/order_complete');

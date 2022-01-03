@@ -644,6 +644,10 @@ textarea {
     color: white !important;
 }
 
+.table-photo {
+    max-width: 200px
+}
+
 @media (max-width: 1200px) {
     footer {
         text-align: center;
@@ -764,6 +768,10 @@ textarea {
 
     .contact-section-form {
         max-width: 90%;
+    }
+
+    .table-photo {
+        max-width: 0;
     }
 }
 

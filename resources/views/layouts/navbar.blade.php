@@ -22,6 +22,9 @@
                     @endguest
                     @auth
                             <a class="dropdown-item" href="{{ route('history-order', ['filter' => 0, 'sort' => 0]) }}">Zamówienia</a>
+                            @if(Auth::user()->role_as == '1')
+                                <a class="dropdown-item" href="">Panel</a>
+                            @endif
                             <a class="dropdown-item" href="{{ route('logout') }}">Wyloguj</a>
                     @endauth
                 </div>
