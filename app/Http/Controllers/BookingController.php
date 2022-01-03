@@ -18,7 +18,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = Bookings::all();
+        $bookings = Bookings::orderBy('booking_on_date', 'desc')->paginate(5);
         return view('/booking_history', ['bookings' => $bookings]);
     }
 

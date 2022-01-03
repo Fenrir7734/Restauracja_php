@@ -63,5 +63,8 @@
                 </tr>
             @endif
         </table>
+        <div  style="height: 50px">
+            {{ $bookings->links("pagination::custom") }}
+        </div>
     </div>
 @endsection

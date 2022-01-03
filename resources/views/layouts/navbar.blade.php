@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg justify-content-end fixed-top">
+<nav class="nav-main navbar navbar-expand-lg justify-content-end fixed-top">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#toggleMobileMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
