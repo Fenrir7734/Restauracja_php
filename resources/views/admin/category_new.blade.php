@@ -24,9 +24,9 @@
                                         @endif
                                     </div>
                                     <div class="col-md-12">
-                                        <label for="name">Nazwa:</label>
+                                        <label for="image">Zdjecie:</label>
                                         <input type="file" id="image" name="image" class="form-control @error('postcode') is-invalid @enderror">
-                                        @if($errors->has('name'))
+                                        @if($errors->has('image'))
                                             <div class="form-error">{{ $errors->first('name') }}</div>
                                         @endif
                                     </div>

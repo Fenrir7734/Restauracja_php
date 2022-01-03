@@ -13,24 +13,24 @@
                             </h2>
                         </header>
                         <div id="cart">
-                            @if($categories)
+                            @if($products)
                                 <table class="table" style="color: white">
-                                    @foreach($categories as $category)
+                                    @foreach($products as $product)
                                         <tr>
                                             <td>
-                                                {{ $category->id }}
+                                                {{ $product->id }}
                                             </td>
                                             <td>
-                                                <img src="{{ URL::asset('img/menu/banners/' . $category->photo) }}" alt="{{ $category->name }}" class="table-photo">
+                                                <img src="{{ URL::asset('img/menu/meals/' . $product->photo) }}" alt="{{ $product->name }}" class="table-photo" style="max-height: 100px">
                                             </td>
                                             <td>
-                                                {{ $category->name }}
+                                                {{ $product->name }}
                                             </td>
                                             <td class="cart-table-checkbox edit-category" data-th="">
-                                                <a class="btn btn-secondary cart-button input-submit remove-from-cart" href="{{ route('edit-category', $category->id) }}"><i class="bi bi-pencil-square"></i></a>
+                                                <a class="btn btn-secondary cart-button input-submit remove-from-cart" href="{{ route('edit-products', $product->id) }}"><i class="bi bi-pencil-square"></i></a>
                                             </td>
                                             <td class="cart-table-checkbox remove-category" data-th="">
-                                                <a class="btn btn-secondary cart-button input-submit remove-from-cart" href="{{ route('remove-category', $category->id) }}"><i class="bi bi-trash"></i></a>
+                                                <a class="btn btn-secondary cart-button input-submit remove-from-cart" href="{{ route('remove-products', $product->id) }}"><i class="bi bi-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -40,7 +40,7 @@
                             @endif
                             <div class="d-flex justify-content-center">
                                 <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <a class="btn form-control input-submit" href="{{ route('create-category') }}">Dodaj</a>
+                                    <a class="btn form-control input-submit" href="{{ route('create-products') }}">Dodaj</a>
                                 </div>
                             </div>
                         </div>

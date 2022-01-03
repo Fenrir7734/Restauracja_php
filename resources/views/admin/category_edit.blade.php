@@ -16,12 +16,18 @@
                             <img src="{{ URL::asset('img/menu/banners/' . $category->photo) }}" alt="{{ $category->name }}" style="max-width: 100%; margin-top: 10px">
                             <form  role="booking-form" method="POST" action="{{ route('update-category', $category) }}" enctype="multipart/form-data" style="margin-top: 10px">
                                 {{ csrf_field() }}
-                                <input name="_method" type="hidden" value="PUT">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <label for="name">Nazwa:</label>
                                             <input type="text" id="name" name="name" class="form-control @error('postcode') is-invalid @enderror" value="{{ $category->name }}">
                                             @if($errors->has('name'))
+                                                <div class="form-error">{{ $errors->first('name') }}</div>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="image">Zdjecie:</label>
+                                            <input type="file" id="image" name="image" class="form-control @error('postcode') is-invalid @enderror">
+                                            @if($errors->has('image'))
                                                 <div class="form-error">{{ $errors->first('name') }}</div>
                                             @endif
                                         </div>

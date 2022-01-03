@@ -37,7 +37,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|max:40',
+            'name' => 'required|min:3|max:60',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -87,10 +87,18 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|max:40'
+            'name' => 'required|min:3|max:40',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $category = Category::find($id);
+
+        if ($request->image) {
+            unlink(public_path('img/menu/banners') . '/' . $category->photo);
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('img/menu/banners'), $imageName);
+            $category->photo = $imageName;
+        }
         $category->name = $request->name;
 
         if ($category->save()) {
@@ -108,6 +116,7 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
+        unlink(public_path('img/menu/banners') . '/' . $category->photo);
         if ($category->delete()) {
             return redirect()->route('admin-categories-preview');
         }

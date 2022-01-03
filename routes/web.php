@@ -11,6 +11,7 @@ use \App\Http\Controllers\Auth\RegisterController;
 use \App\Http\Controllers\AddressesController;
 use \App\Http\Controllers\AdminPanelController;
 use \App\Http\Controllers\CategoriesController;
+use \App\Http\Controllers\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,12 +37,20 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin-panel', [AdminPanelController::class, 'index'])->name('admin-panel');
+
     Route::get('/categories-create', [CategoriesController::class, 'create'])->name('create-category');
     Route::post('/categories-store', [CategoriesController::class, 'store'])->name('store-category');
     Route::get('/categories-preview', [CategoriesController::class, 'index'])->name('admin-categories-preview');
     Route::get('/categories-delete/{id}', [CategoriesController::class, 'destroy'])->name('remove-category');
     Route::get('/categories-edit/{id}', [CategoriesController::class, 'edit'])->name('edit-category');
-    Route::put('/categories-update/{id}', [CategoriesController::class, 'update'])->name('update-category');
+    Route::post('/categories-update/{id}', [CategoriesController::class, 'update'])->name('update-category');
+
+    Route::get('/products-create', [ProductsController::class, 'create'])->name('create-products');
+    Route::post('/products-store', [ProductsController::class, 'store'])->name('store-products');
+    Route::get('/products-preview', [ProductsController::class, 'index'])->name('admin-products-preview');
+    Route::get('/products-delete/{id}', [ProductsController::class, 'destroy'])->name('remove-products');
+    Route::get('/products-edit/{id}', [ProductsController::class, 'edit'])->name('edit-products');
+    Route::post('/products-update/{id}', [ProductsController::class, 'update'])->name('update-products');
 });
 
 
