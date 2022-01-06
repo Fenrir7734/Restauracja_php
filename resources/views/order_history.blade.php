@@ -17,10 +17,10 @@
                             <form class="d-flex justify-content-around" style="margin-top: 20px" action="{{ route('order-filter') }}">
                                     <div class="">
                                         <label for="filter">Filtruj: </label>
-                                        <select name="filter" id="filter" class="filter">
-                                            <option value="0">Wszystkie</option>
-                                            <option value="1">Nowe</option>
-                                            <option value="2">W realizacji</option>
+                                        <select name="filter" id="filter" class="filter" onchange="window.location.href=this.options[this.selectedIndex].value;">
+                                            <option value="{{ route('history-order', ['filter' => 0, 'sort' => 0]) }}">Wszystkie</option>
+                                            <option value="{{ route('history-order', ['filter' => 1, 'sort' => 0]) }}">Nowe</option>
+                                            <option value="{{ route('history-order', ['filter' => 2, 'sort' => 0]) }}">W realizacji</option>
                                             <option value="3">Wysłane</option>
                                             <option value="4">Zakończone</option>
                                         </select>
@@ -94,28 +94,15 @@
                                 </tr>
                             @endif
                             </table>
+                            @if($orders)
+                                <div  style="height: 50px">
+                                    {{ $orders->links("pagination::custom") }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    <script type="text/javascript">
-        $('.filter').change(function () {
-            var valFilter = $(this).find(':selected')[0].value;
-            var valSort = $("select[name=sort]").val();
-            var url = "{{ route('order-filter', ['filter' => ":filter", 'sort' => ":sort"]) }}"
-            url = url.replace(":filter", valFilter).replace(":sort", valSort);
-            window.location.href = "{{ URL::to('history-order/2/2') }}"
-
-            $.ajax({
-                url: {{ route("order-filter") }},
-                type: 'POST',
-                data: {
-                    filter: $(this).find(':selected')[0].value,
-                    sort: $("select[name=sort]").val()
-                },
-            })
-        })
-    </script>
 @endsection

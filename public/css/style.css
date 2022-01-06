@@ -654,6 +654,10 @@ textarea {
     color: white;
 }
 
+.start-center {
+    text-align: start;
+}
+
 @media (max-width: 1200px) {
     footer {
         text-align: center;
@@ -762,6 +766,10 @@ textarea {
 
     .order-history * {
         font-size: 12px;
+    }
+
+    .start-center {
+        text-align: center;
     }
 }
 

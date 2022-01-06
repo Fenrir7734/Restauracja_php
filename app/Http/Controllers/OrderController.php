@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\CartContent;
-use App\Models\Product;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
@@ -55,13 +53,16 @@ class OrderController extends Controller
             $filterStatement
         ])
             ->orderBy($sortRow, $sortDirection)
-            ->get();
+            ->paginate(10);
         return view('order_history', ['orders' => $cart]);
     }
 
     public function filter(Request $request) {
-        echo "<script>console.log('tu')</script>";
-        return \redirect()->route('history-order', ['filter' =>$request->filter, 'sort' => $request->sort]);
+
+    }
+
+    public function sort(Request $request) {
+
     }
 
     public function content($id) {

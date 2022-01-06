@@ -13,6 +13,7 @@ use \App\Http\Controllers\AdminPanelController;
 use \App\Http\Controllers\CategoriesController;
 use \App\Http\Controllers\ProductsController;
 use \App\Http\Controllers\BookingController;
+use \App\Http\Controllers\AccountController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,10 +34,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/index-order', [OrderController::class, 'index'])->name('create-order');
     Route::get('/history-order/{filter}/{sort}', [OrderController::class, 'create'])->name('history-order');
     Route::get('/order_details/{id}', [OrderController::class, 'content'])->name('order-details');
-    Route::patch('/filter', [OrderController::class, 'filter'])->name('order-filter');
+    Route::post('/filter', [OrderController::class, 'filter'])->name('order-filter');
     Route::get('/booking-history', [BookingController::class, 'index'])->name('booking-history');
     Route::get('/booking-details/{id}', [BookingController::class, 'edit'])->name('booking-details');
     Route::get('/booking-details-cancel/{id}', [BookingController::class, 'cancel'])->name('booking-cancel');
+    Route::get('/account_details', [AccountController::class, 'index'])->name('account');
+    Route::post('/account_details', [AccountController::class, 'update'])->name('update-account');
 });
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
