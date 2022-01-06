@@ -40,9 +40,6 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $d = $request->get('booking-date');
-        echo "<script>console.log($d)</script>";
-
         $this->validate($request, [
             'first-name' => [
                 'required',

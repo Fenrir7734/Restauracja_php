@@ -63,7 +63,7 @@
                         @endif
                     </span>
                 </div>
-                <div class="row justify-content-end" style="padding-top: 20px; padding-left: 12px; padding-right: 12px">
+                <div class="row justify-content-lg-end justify-content-center" style="padding-top: 20px; padding-left: 12px; padding-right: 12px">
                     <input type="submit" id="booking-submit-button" class="form-control input-submit" value="Zapisz" style="max-width: 100px">
                 </div>
             </form>

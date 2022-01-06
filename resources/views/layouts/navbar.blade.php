@@ -30,6 +30,7 @@
                             @if(Auth::user()->role_as == '1')
                                 <a class="dropdown-item" href="{{ route('admin-categories-preview') }}">Zarządzaj kategoriami</a>
                                 <a class="dropdown-item" href="{{ route('admin-products-preview') }}">Zarządzaj produktami</a>
+                                <a class="dropdown-item" href="{{ route('preview-admin-booking') }}">Zarządzaj rezerwacjami</a>
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}">Wyloguj</a>
                     @endauth

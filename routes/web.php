@@ -14,6 +14,7 @@ use \App\Http\Controllers\CategoriesController;
 use \App\Http\Controllers\ProductsController;
 use \App\Http\Controllers\BookingController;
 use \App\Http\Controllers\AccountController;
+use \App\Http\Controllers\AdminBookingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,6 +59,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/products-delete/{id}', [ProductsController::class, 'destroy'])->name('remove-products');
     Route::get('/products-edit/{id}', [ProductsController::class, 'edit'])->name('edit-products');
     Route::post('/products-update/{id}', [ProductsController::class, 'update'])->name('update-products');
+
+    Route::get('/admin-booking-create', [AdminBookingController::class, 'create'])->name('create-admin-booking');
+    Route::post('/admin-booking-store', [AdminBookingController::class, 'store'])->name('store-admin-booking');
+    Route::get('/admin-booking-preview', [AdminBookingController::class, 'index'])->name('preview-admin-booking');
+    Route::get('/admin-booking-delete/{id}', [AdminBookingController::class, 'destroy'])->name('remove-admin-booking');
+    Route::get('/admin-booking-edit/{id}', [AdminBookingController::class, 'edit'])->name('edit-admin-booking');
+    Route::post('/admin-booking-update/{id}', [AdminBookingController::class, 'update'])->name('update-admin-booking');
 });
 
 
