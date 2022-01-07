@@ -27,12 +27,16 @@ use \App\Http\Controllers\AdminBookingController;
 */
 
 Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+Route::get('forgot-password', function () {
+    return view('auth/passwords/email');
+})->name('forgot-password');
 Route::group(['middleware' => ['auth']], function () {
-    Route::post('/create-order', [OrderController::class, 'store'])->name('store-order');
-    Route::get('/index-order', [OrderController::class, 'index'])->name('create-order');
+    Route::post('/create-order', [OrderController::class, 'store'])->middleware('verified')->name('store-order');
+    Route::get('/index-order', [OrderController::class, 'index'])->middleware('verified')->name('create-order');
     Route::get('/history-order/{filter}/{sort}', [OrderController::class, 'create'])->name('history-order');
     Route::get('/order_details/{id}', [OrderController::class, 'content'])->name('order-details');
     Route::post('/filter', [OrderController::class, 'filter'])->name('order-filter');
@@ -108,3 +112,4 @@ Route::patch('/update-cart', [CartController::class, 'updateCart'])->name('updat
 Route::delete('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
 Route::get('/booking', [BookingController::class, 'create'])->name('booking-create');
 Route::post("/booking", [BookingController::class, 'store'])->name('booking-store');
+
