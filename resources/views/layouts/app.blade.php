@@ -10,7 +10,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
+    <script src="{{ URL::asset('js/script.js') }}"></script>
 
     @if (Route::is('gallery') || Route::is('menu') || Route::is('history-order'))
         <link href="{{ asset('css/jquery.fancybox.min.css') }}" rel="stylesheet">

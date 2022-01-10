@@ -18,7 +18,7 @@
                                 <?php $sum = 0; ?>
                                 <table class="table cart-table align-middle" id="cart-table">
                                     @foreach(session('cart') as $id => $content)
-                                        <?php $sum += $content[$id]['total_price']?>
+                                        <?php $sum += $content[$id]['total_price'] * $content[$id]['quantity']?>
                                         <tr data-id="{{ $id }}">
                                             <td class="cart-table-checkbox" data-th="">
                                                 <button class="btn btn-secondary cart-button input-submit remove-from-cart"><i class="bi bi-trash"></i></button>
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
 
-                                <script type="text/javascript">
+                                <script>
                                     $(".update-cart").change(function (event) {
                                         event.preventDefault();
                                         var element = $(this);

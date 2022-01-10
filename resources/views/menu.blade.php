@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 @endforeach
-                <script type="text/javascript">
+                <script>
                     $('.add-to-cart').click(function (event) {
                         event.preventDefault();
                         var element = $(this);
@@ -99,4 +99,5 @@
                 </div>
             @endif
         </div>
+    </main>
 @endsection
