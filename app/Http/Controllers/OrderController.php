@@ -23,6 +23,15 @@ class OrderController extends Controller
         return view('order');
     }
 
+    public function index_preview() {
+        $cart = DB::table('cart')
+            ->join('address', 'address.id', '=', 'cart.address_id')
+            ->select('cart.id', 'address.first_name', 'address.last_name', 'cart.status', 'cart.ordered_at', 'cart.amount')
+            ->orderBy('cart.ordered_at', 'desc')
+            ->paginate(10);
+        return view('/admin/order_preview', ['orders' => $cart]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -250,7 +259,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Cart::find($id);
+
     }
 
     /**
@@ -273,6 +283,11 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Cart::find($id);
+
+        if ($order->delete()) {
+            return redirect()->route('order-preview');
+        }
+        return redirect('error');
     }
 }

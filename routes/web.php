@@ -15,6 +15,7 @@ use \App\Http\Controllers\ProductsController;
 use \App\Http\Controllers\BookingController;
 use \App\Http\Controllers\AccountController;
 use \App\Http\Controllers\AdminBookingController;
+use \App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,6 +58,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/categories-edit/{id}', [CategoriesController::class, 'edit'])->name('edit-category');
     Route::post('/categories-update/{id}', [CategoriesController::class, 'update'])->name('update-category');
 
+    Route::get('/user-preview', [UserController::class, 'index'])->name('preview-user');
+    Route::get('/user-delete/{id}', [UserController::class, 'destroy'])->name('remove-user');
+    Route::get('/user-edit/{id}', [UserController::class, 'edit'])->name('edit-user');
+    Route::post('/user-update/{id}', [UserController::class, 'update'])->name('update-user');
+    Route::get('/user-verify/{id}', [UserController::class, 'verify'])->name('verify-user');
+    Route::get('/user-reset/{id}', [UserController::class, 'resetPassword'])->name('reset-user');
+
     Route::get('/products-create', [ProductsController::class, 'create'])->name('create-products');
     Route::post('/products-store', [ProductsController::class, 'store'])->name('store-products');
     Route::get('/products-preview', [ProductsController::class, 'index'])->name('admin-products-preview');
@@ -70,6 +78,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin-booking-delete/{id}', [AdminBookingController::class, 'destroy'])->name('remove-admin-booking');
     Route::get('/admin-booking-edit/{id}', [AdminBookingController::class, 'edit'])->name('edit-admin-booking');
     Route::post('/admin-booking-update/{id}', [AdminBookingController::class, 'update'])->name('update-admin-booking');
+
+    Route::get('/admin-order-preview', [OrderController::class, 'index_preview'])->name('order-preview');
+    Route::get('/admin-order-edit/{id}', [OrderController::class, 'edit'])->name('order-edit');
+    Route::get('/admin-order-delete/{id}', [OrderController::class, 'destroy'])->name('order-remove');
+    Route::get('/admin-order-update/{id}', [OrderController::class, 'update'])->name('order-update');
 });
 
 

@@ -9,7 +9,7 @@
     <article class="">
         @if (session('status'))
             <div class="alert alert-success" role="alert" style="margin-top: 5px">
-                {{ session('status') }}
+                Wysłaliśmy do ciebie wiadomość z linkiem do resetu hasła
             </div>
         @endif
         <form method="POST" action="{{ route('password.email') }}">

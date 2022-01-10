@@ -7,32 +7,43 @@
         </h2>
     </header>
     <div id="cart">
-        @if($bookings)
+        <div>
+            @if($errors->has('msg'))
+                <div class="alert alert-warning" role="alert" style="text-align: center; margin-top: 10px">
+                    {{ $errors->first('msg') }}
+                </div>
+            @endif
+        </div>
+        @if($users)
             <table class="table" style="color: white">
                 <tr>
                     <th>ID</th>
-                    <th>Imię</th>
-                    <th>Data</th>
+                    <th>Nazwa</th>
+                    <th>Rola</th>
                     <th></th>
                     <th></th>
                 </tr>
-                @foreach($bookings as $booking)
+                @foreach($users as $user)
                     <tr>
                         <td>
-                            {{ $booking->id }}
+                            {{ $user->id }}
                         </td>
                         <td>
-                            {{ $booking->first_name }} {{ $booking->last_name }}
+                            {{ $user->name }}
                         </td>
                         <td>
-                            {{ $booking->booking_on_date }}
+                            @if($user->role_as == 0)
+                                User
+                            @else
+                                Admin
+                            @endif
                         </td>
 
                         <td class="cart-table-checkbox edit-category" data-th="">
-                            <a class="btn btn-secondary cart-button input-submit remove-from-cart" href="{{ route('edit-admin-booking', $booking->id) }}"><i class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-secondary cart-button input-submit remove-from-cart" href="{{ route('edit-user', $user->id) }}"><i class="bi bi-pencil-square"></i></a>
                         </td>
                         <td class="cart-table-checkbox remove-category" data-th="">
-                            <a class="btn btn-secondary cart-button input-submit remove-from-cart" href="{{ route('remove-admin-booking', $booking->id) }}"><i class="bi bi-trash"></i></a>
+                            <a class="btn btn-secondary cart-button input-submit remove-from-cart" href="{{ route('remove-user', $user->id) }}"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -42,9 +53,9 @@
             <h2 style="min-height: 30%">Brak</h2>
         @endif
         <div class="d-flex justify-content-center">
-            @if($bookings)
+            @if($users)
                 <div class="col-lg-3 col-md-6" style="height: 50px">
-                    {{ $bookings->links("pagination::custom") }}
+                    {{ $users->links("pagination::custom") }}
                 </div>
             @endif
         </div>

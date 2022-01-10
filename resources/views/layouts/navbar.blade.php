@@ -31,6 +31,8 @@
                                 <a class="dropdown-item" href="{{ route('admin-categories-preview') }}">Zarządzaj kategoriami</a>
                                 <a class="dropdown-item" href="{{ route('admin-products-preview') }}">Zarządzaj produktami</a>
                                 <a class="dropdown-item" href="{{ route('preview-admin-booking') }}">Zarządzaj rezerwacjami</a>
+                                <a class="dropdown-item" href="{{ route('preview-user') }}">Zarządzaj kontami</a>
+                                <a class="dropdown-item" href="{{ route('order-preview') }}">Zarządzaj zamówieniami</a>
                             @endif
                             <a class="dropdown-item" href="{{ route('logout') }}">Wyloguj</a>
                     @endauth
