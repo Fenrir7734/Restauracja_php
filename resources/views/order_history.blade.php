@@ -18,25 +18,24 @@
                                     <div class="">
                                         <label for="filter">Filtruj: </label>
                                         <select name="filter" id="filter" class="filter" onchange="window.location.href=this.options[this.selectedIndex].value;">
-                                            <option value="{{ route('history-order', ['filter' => 0, 'sort' => 0]) }}">Wszystkie</option>
-                                            <option value="{{ route('history-order', ['filter' => 1, 'sort' => 0]) }}">Nowe</option>
-                                            <option value="{{ route('history-order', ['filter' => 2, 'sort' => 0]) }}">W realizacji</option>
-                                            <option value="3">Wysłane</option>
-                                            <option value="4">Zakończone</option>
+                                            <option value="{{ route('history-order', ['filter' => '0', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 0) selected @endif>Wszystkie</option>
+                                            <option value="{{ route('history-order', ['filter' => '1', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 1) selected @endif>Nowe</option>
+                                            <option value="{{ route('history-order', ['filter' => '2', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 2) selected @endif>W realizacji</option>
+                                            <option value="{{ route('history-order', ['filter' => '3', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 3) selected @endif>Wysłane</option>
+                                            <option value="{{ route('history-order', ['filter' => '4', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 4) selected @endif>Zakończone</option>
+                                            <option value="{{ route('history-order', ['filter' => '5', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 5) selected @endif>Zwrócone</option>
+                                            <option value="{{ route('history-order', ['filter' => '6', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 6) selected @endif>Anulowane</option>
                                         </select>
                                     </div>
                                     <div class="">
                                         <label for="sort">Sortuj: </label>
-                                        <select name="sort" id="sort" class="sort">
-                                            <option value="0">Od najnowszego</option>
-                                            <option value="1">Od najstarszego</option>
-                                            <option value="2">Od najdroższego</option>
-                                            <option value="3">Od najtańszego</option>
+                                        <select name="sort" id="sort" class="sort" onchange="window.location.href=this.options[this.selectedIndex].value;">
+                                            <option value="{{ route('history-order', ['filter' => request()->get('filter'), 'sort' => 'ordered_at', 'direction' => 'desc']) }}" @if(request()->get('sort') == 'ordered_at' && request()->get('direction') == 'desc') selected @endif>Od najnowszego</option>
+                                            <option value="{{ route('history-order', ['filter' => request()->get('filter'), 'sort' => 'ordered_at', 'direction' => 'asc']) }}" @if(request()->get('sort') == 'ordered_at' && request()->get('direction') == 'asc') selected @endif>Od najstarszego</option>
+                                            <option value="{{ route('history-order', ['filter' => request()->get('filter'), 'sort' => 'amount', 'direction' => 'desc']) }}" @if(request()->get('sort') == 'amount' && request()->get('direction') == 'desc') selected @endif>Od najdroższego</option>
+                                            <option value="{{ route('history-order', ['filter' => request()->get('filter'), 'sort' => 'amount', 'direction' => 'asc']) }}" @if(request()->get('sort') == 'amount' && request()->get('direction') == 'asc') selected @endif>Od najtańszego</option>
                                         </select>
                                     </div>
-                                   <div>
-                                       <input type="submit">
-                                   </div>
                             </form>
                             <table class="table cart-table align-middle order-history">
                                 <tr>
@@ -51,7 +50,7 @@
                                     </th>
                                     <th></th>
                                 </tr>
-                            @if($orders)
+                            @if($orders && count($orders) > 0)
                                     @foreach($orders as $order)
                                         <tr data-id="{{ $order->id }}">
                                             <td>
@@ -73,6 +72,12 @@
                                                     @break
                                                     @case(4)
                                                     Zakończone
+                                                    @break
+                                                    @case(5)
+                                                    Zwrócone
+                                                    @break
+                                                    @case(6)
+                                                    Anulowane
                                                     @break
                                                     @default
                                                     Nieznany status
@@ -96,7 +101,7 @@
                             </table>
                             @if($orders)
                                 <div  style="height: 50px">
-                                    {{ $orders->links("pagination::custom") }}
+                                    {{ $orders->appends($_GET)->links("pagination::custom") }}
                                 </div>
                             @endif
                         </div>
@@ -104,5 +109,11 @@
                 </div>
             </div>
         </div>
+        <script>
+            $('#filter').change(function () {
+                var oprtionSelected = $("option:selected", this);
+                console.log(oprtionSelected);
+            })
+        </script>
     </main>
 @endsection

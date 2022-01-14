@@ -38,7 +38,8 @@ Route::get('forgot-password', function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/create-order', [OrderController::class, 'store'])->middleware('verified')->name('store-order');
     Route::get('/index-order', [OrderController::class, 'index'])->middleware('verified')->name('create-order');
-    Route::get('/history-order/{filter}/{sort}', [OrderController::class, 'create'])->name('history-order');
+    //Route::get('/history-order/{filter}/{sort}', [OrderController::class, 'create'])->name('history-order');
+    Route::get('/history_details', [OrderController::class, 'create'])->name('history-order');
     Route::get('/order_details/{id}', [OrderController::class, 'content'])->name('order-details');
     Route::post('/filter', [OrderController::class, 'filter'])->name('order-filter');
     Route::get('/booking-history', [BookingController::class, 'index'])->name('booking-history');

@@ -29,7 +29,7 @@ class OrderController extends Controller
             ->paginate(10);
         return view('/admin/order_preview', ['orders' => $cart]);
     }
-
+/*
     public function create($filter, $sort)
     {
         $filterStatement = ['status', '!=', $filter];
@@ -58,13 +58,30 @@ class OrderController extends Controller
             ->paginate(10);
         return view('order_history', ['orders' => $cart]);
     }
+*/
 
-    public function filter(Request $request) {
+    public function create() {
+        $p_filters = ['0', '1', '2', '3', '4', '5', '6'];
+        $p_sort = ['ordered_at', 'amount'];
+        $p_direction = ['asc', 'desc'];
 
-    }
+        if (!in_array(\request()->get('filter'), $p_filters) ||
+            !in_array(\request()->get('sort'), $p_sort) ||
+            !in_array(\request()->get('direction'), $p_direction)) {
+            return redirect()->route('history-order', ['filter' => '0', 'sort' => 'ordered_at', 'direction' => 'asc']);
+        }
 
-    public function sort(Request $request) {
+        $filter = \request()->get('filter') != '0' ? ['status', '=', \request()->get('filter')] : ['status', '!=', '0'];
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
 
+        $cart = Cart::where([
+            ['user_id', '=' ,\Auth::user()->id],
+            $filter
+        ])
+            ->orderBy($sort, $direction)
+            ->paginate(10);
+        return view('order_history', ['orders' => $cart]);
     }
 
     public function content($id) {

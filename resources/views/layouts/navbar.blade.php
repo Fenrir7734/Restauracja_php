@@ -24,7 +24,7 @@
                             <div class="dropdown-header">
                                 <h3>Witaj {{ Auth::user()->name }}!</h3>
                             </div>
-                            <a class="dropdown-item" href="{{ route('history-order', ['filter' => 0, 'sort' => 0]) }}">Zamówienia</a>
+                            <a class="dropdown-item" href="{{ route('history-order', ['filter' => '0', 'sort' => 'ordered_at', 'direction' => 'desc']) }}">Zamówienia</a>
                             <a class="dropdown-item" href="{{ route('booking-history') }}">Rezerwacje</a>
                             <a class="dropdown-item" href="{{ route('account') }}">Ustawienia konta</a>
                             @if(Auth::user()->role_as == '1')
