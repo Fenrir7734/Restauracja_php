@@ -104,6 +104,12 @@
                                                 @case(4)
                                                     Zakończone
                                                     @break
+                                                @case(5)
+                                                    Zwrócone
+                                                    @break
+                                                @case(6)
+                                                    Anulowane
+                                                    @break
                                                 @default
                                                     Nieznany status
                                                     @break

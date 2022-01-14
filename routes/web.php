@@ -82,7 +82,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin-order-preview', [OrderController::class, 'index_preview'])->name('order-preview');
     Route::get('/admin-order-edit/{id}', [OrderController::class, 'edit'])->name('order-edit');
     Route::get('/admin-order-delete/{id}', [OrderController::class, 'destroy'])->name('order-remove');
-    Route::get('/admin-order-update/{id}', [OrderController::class, 'update'])->name('order-update');
+    Route::post('/admin-order-update/{id}', [OrderController::class, 'update'])->name('order-update');
+    Route::get('/admin-order-remove-content/{id}/{cart_id}', [OrderController::class, 'removeFromOrder'])->name('order-remove-content');
 });
 
 
