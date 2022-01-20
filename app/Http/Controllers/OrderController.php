@@ -160,7 +160,7 @@ class OrderController extends Controller
                 return \redirect('error');
             }
         }
-
+        session()->remove('cart');
         return redirect()->route('order-complete');
     }
 
