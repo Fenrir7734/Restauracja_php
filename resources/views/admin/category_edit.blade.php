@@ -8,7 +8,7 @@
     </header>
     <div id="cart">
         <img src="{{ URL::asset('img/menu/banners/' . $category->photo) }}" alt="{{ $category->name }}" style="max-width: 100%; margin-top: 10px">
-        <form  role="booking-form" method="POST" action="{{ route('update-category', $category) }}" enctype="multipart/form-data" style="margin-top: 10px">
+        <form method="POST" action="{{ route('update-category', $category) }}" enctype="multipart/form-data" style="margin-top: 10px">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-12">

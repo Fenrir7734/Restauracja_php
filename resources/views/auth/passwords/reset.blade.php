@@ -7,7 +7,7 @@
             Reset hasła
         </h2>
     </header>
-    <article class="">
+    <div>
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">
@@ -33,7 +33,7 @@
                 <input type="submit" id="booking-submit-button" class="form-control input-submit" value="Zresetuj hasło" style="margin-bottom: 10px;">
             </div>
         </form>
-    </article>
+    </div>
 @endsection
 
 

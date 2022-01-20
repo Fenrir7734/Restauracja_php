@@ -8,7 +8,7 @@
     </header>
     <div id="cart" style="margin-top: 30px; text-align: center" >
         <div class="row justify-content-center align-content-center mp-side-zero order-details-container">
-            <form  role="booking-form" method="POST" action="{{ route('update-account') }}" enctype="multipart/form-data" style="margin-top: 10px">
+            <form method="POST" action="{{ route('update-account') }}" enctype="multipart/form-data" style="margin-top: 10px">
                 @csrf
                 <div class="row">
                     <div class="col-lg-4 col-md-12 start-center" style="font-size: 22px" >

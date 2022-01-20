@@ -90,31 +90,5 @@
                 </h4>
             </div>
         </div>
-        <article class="row justify-content-center top-buffer-60">
-            <header class="row w-50">
-                <div class="col-12 text-center">
-                    <h3>NAPISZ DO NAS</h3>
-                </div>
-            </header>
-            <div class="top-buffer-60"></div>
-            <div class="row contact-section-form justify-content-center">
-                <div class="col-lg-8 col-md-10 col-sm-12">
-                    <form id="contact-form">
-                        <label for="first-last-name">Imię i Nazwisko:</label>
-                        <input type="text" id="first-last-name" class="form-control">
-                        <div id="first-last-name-error" class="form-error"></div>
-                        <label for="mail-2">Email:</label>
-                        <input type="email" id="mail-2" class="form-control">
-                        <div id="mail-2-error" class="form-error"></div>
-                        <label for="subject">Temat:</label>
-                        <input type="text" id="subject" class="form-control">
-                        <div id="subject-error" class="form-error"></div>
-                        <label for="note-2" style="padding-left: 0">Leave a note:</label>
-                        <textarea id="note-2" rows="5" style="display: block; width: 100%"></textarea>
-                        <input type="button" id="contact-send-button" class="form-control top-buffer-20 input-submit" value="Prześlij">
-                    </form>
-                </div>
-            </div>
-        </article>
     </main>
 @endsection

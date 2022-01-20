@@ -6,7 +6,7 @@
             Zaloguj się
         </h2>
     </header>
-    <article class="">
+    <div>
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group col-md-12">
@@ -33,6 +33,6 @@
                 <input type="button" style="margin-top: 10px" class="form-control input-submit" value="Nie pamiętasz hasła?" onclick="window.location='{{ url("forgot-password") }}'">
             </div>
         </form>
-    </article>
+    </div>
 @endsection
 

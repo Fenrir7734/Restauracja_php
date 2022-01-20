@@ -14,6 +14,10 @@ class CategoriesController extends Controller
         return view('/admin/categories_preview', ['categories' => $categories]);
     }
 
+    public function create() {
+        return view('/admin/category_new');
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

@@ -29,7 +29,7 @@
         @if(session()->has('err'))
             <div class="form-error" style="margin-bottom: 10px">{{ session()->remove('err') }}</div>
         @endif
-        <form role="form" method="POST" action="{{ route('order-update', $cart->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('order-update', $cart->id) }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @csrf
             <div class="row">
@@ -120,7 +120,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="status">Status:</label>
-                    <select type="text" id="status" name="status" class="form-control @error('status') is-invalid @enderror">
+                    <select id="status" name="status" class="form-control @error('status') is-invalid @enderror">
                         <option value="1" {{ $cart->status == 1 ? "selected" : "" }}>Nowe</option>
                         <option value="2" {{ $cart->status == 2 ? "selected" : "" }}>W realizacji</option>
                         <option value="3" {{ $cart->status == 3 ? "selected" : "" }}>Wysłane</option>

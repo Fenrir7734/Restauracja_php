@@ -69,6 +69,7 @@ class BookingController extends Controller
             ],
             'people' => [
                 'required',
+                'integer',
                 'between:1,99'
             ],
             'booking-date' => [

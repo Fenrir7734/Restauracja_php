@@ -29,7 +29,7 @@
                     <td class="cart-table-price">{{ number_format($sum, 2) }} zł</td>
                 </tr>
             </table>
-            <form role="form" method="POST" action="{{ route('store-order') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('store-order') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 @csrf
                 <div class="row">
@@ -112,7 +112,7 @@
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-lg-3 col-md-6 col-sm-12">
-                        <input type="button" class="btn form-control input-submit" href="{{ url('') }}" value="Anuluj">
+                        <input type="button" class="btn form-control input-submit" value="Anuluj">
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <button type="submit" class="btn form-control input-submit">Zamów</button>

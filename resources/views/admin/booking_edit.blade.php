@@ -3,11 +3,11 @@
 @section('table-content')
     <header class="form-header text-center">
         <h2>
-            Kategoria
+            Rezerwacja
         </h2>
     </header>
     <div id="cart">
-        <form  role="booking-form" method="POST" action="{{ route('update-admin-booking', $booking) }}" enctype="multipart/form-data" style="margin-top: 10px">
+        <form method="POST" action="{{ route('update-admin-booking', $booking) }}" enctype="multipart/form-data" style="margin-top: 10px">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-6">
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="status">Status:</label>
-                    <select type="text" id="status" name="status" class="form-control @error('status') is-invalid @enderror">
+                    <select id="status" name="status" class="form-control @error('status') is-invalid @enderror">
                         <option value="1" {{ $booking->status == 1 ? "selected" : "" }}>Nowe</option>
                         <option value="2" {{ $booking->status == 2 ? "selected" : "" }}>Potwierdzone</option>
                         <option value="3" {{ $booking->status == 3 ? "selected" : "" }}>Zakończone</option>

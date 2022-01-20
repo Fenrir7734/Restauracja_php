@@ -6,7 +6,7 @@
             Zrejestruj się
         </h2>
     </header>
-    <article class="">
+    <div>
         <form method="POST" action="{{ route('register') }}">
             @csrf
             <div class="form-group col-md-12">
@@ -38,7 +38,7 @@
                 <input type="submit" id="booking-submit-button" class="form-control input-submit" value="Zrejestruj się" style="margin-bottom: 10px;">
             </div>
         </form>
-    </article>
+    </div>
 @endsection
 
 

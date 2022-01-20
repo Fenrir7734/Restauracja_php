@@ -7,7 +7,7 @@
         </h2>
     </header>
     <div id="cart">
-        <form  role="booking-form" method="POST" action="{{ route('store-category') }}" enctype="multipart/form-data" style="margin-top: 10px">
+        <form method="POST" action="{{ route('store-category') }}" enctype="multipart/form-data" style="margin-top: 10px">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-12">

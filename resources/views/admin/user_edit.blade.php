@@ -32,20 +32,20 @@
                 </div>
                 <div class="col-md-6 col-12">
                     <label for="role">Rola:</label>
-                    <select type="text" id="role" name="role" class="form-control @error('category') is-invalid @enderror">
+                    <select id="role" name="role" class="form-control @error('category') is-invalid @enderror">
                         <option value="0" {{ $user->role_as == 0 ? "selected" : "" }}>User</option>
                         <option value="1" {{ $user->role_as == 1 ? "selected" : "" }}>Admin</option>
                     </select>
                 </div>
             </div>
             <div class="row" style="padding-top: 20px; padding-left: 12px; padding-right: 12px">
-                <input type="submit" id="booking-submit-button" class="form-control input-submit" value="Zapisz">
+                <input type="submit" class="form-control input-submit" value="Zapisz">
             </div>
             <div class="row" style=" padding-left: 12px; padding-right: 12px; padding-top: 5px">
-                <a type="button" id="booking-submit-button" class="btn btn-secondary cart-button input-submit" href="{{ route('verify-user', $user->id) }}">Zweryfikuj konto</a>
+                <a class="btn btn-secondary cart-button input-submit" href="{{ route('verify-user', $user->id) }}">Zweryfikuj konto</a>
             </div>
             <div class="row" style=" padding-left: 12px; padding-right: 12px">
-                <a type="button" id="booking-submit-button" class="btn btn-secondary cart-button input-submit" href="{{ route('reset-user', $user->id) }}">Zresetuj hasło</a>
+                <a class="btn btn-secondary cart-button input-submit" href="{{ route('reset-user', $user->id) }}">Zresetuj hasło</a>
             </div>
         </form>
         @if(session()->has('msg'))

@@ -3,7 +3,7 @@
 @section('table-content')
     <header class="form-header text-center">
         <h2>
-            Twój koszyk
+            Produkty
         </h2>
     </header>
     <div id="cart">

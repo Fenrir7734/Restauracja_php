@@ -78,7 +78,7 @@
                 @endif
             </div>
         </div>
-        <div class="row" style="padding-left: 12px; padding-right: 12px">
+        <div class="row" style="padding-left: 12px; padding-right: 12px; margin-top:10px">
             <label for="note" style="padding-left: 0">Wiadomość (opcjonalne):</label>
             <textarea id="note" name="note" rows="5"></textarea>
         </div>

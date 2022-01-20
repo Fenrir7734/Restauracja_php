@@ -7,7 +7,7 @@
         </h2>
     </header>
     <div id="cart">
-        <form  role="booking-form" method="POST" action="{{ route('update-products', $product->id) }}" enctype="multipart/form-data" style="margin-top: 10px">
+        <form method="POST" action="{{ route('update-products', $product->id) }}" enctype="multipart/form-data" style="margin-top: 10px">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-6">
@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="category">Kategoria:</label>
-                    <select type="text" id="category" name="category" class="form-control @error('category') is-invalid @enderror">
+                    <select id="category" name="category" class="form-control @error('category') is-invalid @enderror">
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? "selected" : "" }}>{{ $category->name }}</option>
                         @endforeach
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="price">Cena:</label>
-                    <input type="number" id="price" name="price" class="form-control @error('price') is-invalid @enderror" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" value="{{ $product->price }}">
+                    <input type="number" id="price" name="price" class="form-control @error('price') is-invalid @enderror" step="0.01" value="{{ $product->price }}">
                     @if($errors->has('price'))
                         <div class="form-error">{{ $errors->first('price') }}</div>
                     @endif
