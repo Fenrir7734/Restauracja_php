@@ -69,7 +69,7 @@
                     <p>
                         Możliwość rezerwacji 5 miesięcy w przód.<br><br>
                         Rezerwację stolika na wieczór możesz dokonać dzwoniąc na numer <a href="tel:123456789" class="link">123 456 789</a> lub <a href="mailto:email@gmail.com" class="link">mailowo</a> . Dzwonić można od godziny 14:00 do 20:00 przez cały tydzień. Poza tymi godzinnami prosimy o zostawienie wiadomości, postaramy się odpowiedzieć najszybciej jak to będzie możliwe.<br><br>
-                        Jeżeli chcesz zorganizować u nas imprezę dla grupy większej niż 20 osób prosimy skorzystać z naszego <a href="booking.html" class="link">formularza rezerwacyjnego</a> .
+                        Jeżeli chcesz zorganizować u nas imprezę dla grupy większej niż 20 osób prosimy skorzystać z naszego <a href="{{ route('booking-create') }}" class="link">formularza rezerwacyjnego</a> .
                     </p>
                 </div>
             </article>

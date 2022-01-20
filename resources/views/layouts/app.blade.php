@@ -17,23 +17,6 @@
         <script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
     @endif
 </head>
-{{--
-        @if (Route::is('booking-create')
-                || Route::is('cart')
-                || Route::is('order')
-                || Route::is('login')
-                || Route::is('register')
-                || Route::is('order-complete')
-                || Route::is('store-order')
-                || Route::is('create-order')
-                || Route::is('error')
-                || Route::is('history-order')
-                || Route::is('order-details'))
-            <body class="booking-background">
-        @else
-            <body>
-        @endif
-        --}}
         @if (Route::is('index') || Route::is('home') || Route::is('contact')|| Route::is('gallery') || Route::is('menu'))
             <body>
         @else
@@ -55,10 +38,10 @@
         <h5>
             Przydatne informacje
         </h5>
-        <a href="menu.html" class="link">Menu</a><br>
-        <a href="gallery.html" class="link">Galeria</a><br>
-        <a href="booking.html" class="link">Rezerwacje</a><br>
-        <a href="contact.html" class="link">Kontakt</a><br>
+        <a href="{{ route('menu') }}" class="link">Menu</a><br>
+        <a href="{{ route('gallery') }}" class="link">Galeria</a><br>
+        <a href="{{ route('booking-create') }}" class="link">Rezerwacje</a><br>
+        <a href="{{ route('contact') }}" class="link">Kontakt</a><br>
     </section>
     <section class="col-xl-2 col-md-4 col-sm-8 bottom-buffer-40">
         <h5>

@@ -29,36 +29,6 @@ class OrderController extends Controller
             ->paginate(10);
         return view('/admin/order_preview', ['orders' => $cart]);
     }
-/*
-    public function create($filter, $sort)
-    {
-        $filterStatement = ['status', '!=', $filter];
-        if ($filter === '1' || $filter == '2' || $filter == '3' || $filter == '4') {
-            $filterStatement = ['status', '=', $filter];
-        }
-
-        $sortRow = 'ordered_at';
-        $sortDirection = 'desc';
-        if ($sort === '1') {
-            $sortRow = 'ordered_at';
-            $sortDirection = 'asc';
-        } else if ($sort === '2') {
-            $sortRow = 'amount';
-            $sortDirection = 'desc';
-        } else if ($sort === '3') {
-            $sortRow = 'amount';
-            $sortDirection = 'asc';
-        }
-
-        $cart = Cart::where([
-            ['user_id', '=' ,\Auth::user()->id],
-            $filterStatement
-        ])
-            ->orderBy($sortRow, $sortDirection)
-            ->paginate(10);
-        return view('order_history', ['orders' => $cart]);
-    }
-*/
 
     public function create() {
         $p_filters = ['0', '1', '2', '3', '4', '5', '6'];

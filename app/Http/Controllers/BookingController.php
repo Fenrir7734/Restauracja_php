@@ -12,7 +12,28 @@ class BookingController extends Controller
 
     public function index()
     {
+        $p_filters = ['0', '1', '2', '3', '4'];
+        $p_sort = ['booking_on_date'];
+        $p_direction = ['asc', 'desc'];
+
+        if (!in_array(\request()->get('filter'), $p_filters) ||
+            !in_array(\request()->get('sort'), $p_sort) ||
+            !in_array(\request()->get('direction'), $p_direction)) {
+            return redirect()->route('booking-history', ['filter' => '0', 'sort' => 'booking_on_date', 'direction' => 'asc']);
+        }
+
+        $filter = \request()->get('filter') != '0' ? ['status', '=', \request()->get('filter')] : ['status', '!=', '0'];
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
+
         $bookings = Bookings::orderBy('booking_on_date', 'desc')->paginate(5);
+        $bookings = Bookings::where([
+            ['user_id', '=', \Auth::user()->id],
+            $filter
+        ])
+            ->orderBy($sort, $direction)
+            ->paginate(5);
+
         return view('/booking_history', ['bookings' => $bookings]);
     }
 
