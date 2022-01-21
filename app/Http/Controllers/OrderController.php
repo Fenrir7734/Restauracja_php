@@ -22,10 +22,25 @@ class OrderController extends Controller
     }
 
     public function index_preview() {
+        $p_filters = ['0', '1', '2', '3', '4', '5', '6'];
+        $p_sort = ['ordered_at', 'amount'];
+        $p_direction = ['asc', 'desc'];
+
+        if (!in_array(\request()->get('filter'), $p_filters) ||
+            !in_array(\request()->get('sort'), $p_sort) ||
+            !in_array(\request()->get('direction'), $p_direction)) {
+            return redirect()->route('order-preview', ['filter' => '0', 'sort' => 'ordered_at', 'direction' => 'desc']);
+        }
+
+        $filter = \request()->get('filter') != '0' ? ['status', '=', \request()->get('filter')] : ['status', '!=', '0'];
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
+
         $cart = DB::table('cart')
             ->join('address', 'address.id', '=', 'cart.address_id')
             ->select('cart.id', 'address.first_name', 'address.last_name', 'cart.status', 'cart.ordered_at', 'cart.amount')
-            ->orderBy('cart.ordered_at', 'desc')
+            ->where([$filter])
+            ->orderBy($sort, $direction)
             ->paginate(10);
         return view('/admin/order_preview', ['orders' => $cart]);
     }
@@ -38,7 +53,7 @@ class OrderController extends Controller
         if (!in_array(\request()->get('filter'), $p_filters) ||
             !in_array(\request()->get('sort'), $p_sort) ||
             !in_array(\request()->get('direction'), $p_direction)) {
-            return redirect()->route('history-order', ['filter' => '0', 'sort' => 'ordered_at', 'direction' => 'asc']);
+            return redirect()->route('history-order', ['filter' => '0', 'sort' => 'ordered_at', 'direction' => 'desc']);
         }
 
         $filter = \request()->get('filter') != '0' ? ['status', '=', \request()->get('filter')] : ['status', '!=', '0'];

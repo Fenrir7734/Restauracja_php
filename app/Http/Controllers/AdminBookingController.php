@@ -9,7 +9,27 @@ class AdminBookingController extends Controller
 {
     public function index()
     {
-        $bookings = Bookings::orderBy('id', 'asc')->paginate(10);
+        $p_filters = ['0', '1', '2', '3', '4'];
+        $p_sort = ['booking_on_date', 'id'];
+        $p_direction = ['asc', 'desc'];
+
+        if (!in_array(\request()->get('filter'), $p_filters) ||
+            !in_array(\request()->get('sort'), $p_sort) ||
+            !in_array(\request()->get('direction'), $p_direction)) {
+            return redirect()->route('preview-admin-booking', ['filter' => '0', 'sort' => 'booking_on_date', 'direction' => 'asc']);
+        }
+
+        $filter = \request()->get('filter') != '0' ? ['status', '=', \request()->get('filter')] : ['status', '!=', '0'];
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
+
+        $bookings = Bookings::where([
+            ['user_id', '=', \Auth::user()->id],
+            $filter
+        ])
+            ->orderBy($sort, $direction)
+            ->paginate(10);
+
         return view('/admin/booking_preview', ['bookings' => $bookings]);
     }
 

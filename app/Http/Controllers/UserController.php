@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Category;
 use App\Models\User;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -12,7 +14,25 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('id', 'asc')->paginate(10);
+        $p_filters = ['-1', '0', '1'];
+        $p_sort = ['name', 'id'];
+        $p_direction = ['asc', 'desc'];
+
+        if (!in_array(\request()->get('filter'), $p_filters) ||
+            !in_array(\request()->get('sort'), $p_sort) ||
+            !in_array(\request()->get('direction'), $p_direction)) {
+            return redirect()->route('preview-user', ['filter' => '-1', 'sort' => 'id', 'direction' => 'asc']);
+        }
+
+        $filter = \request()->get('filter') != '-1' ? ['role_as', '=', \request()->get('filter')] : ['role_as', '!=', '-1'];
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
+
+        $users = User::where([
+            $filter
+        ])
+            ->orderBy($sort, $direction)
+            ->paginate(10);
         return view('/admin/user_preview', ['users' => $users]);
     }
 

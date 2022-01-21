@@ -12,14 +12,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="name">Nazwa:</label>
-                    <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                    <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
                     @if($errors->has('name'))
                         <div class="form-error">{{ $errors->first('name') }}</div>
                     @endif
                 </div>
                 <div class="col-md-6">
                     <label for="image">Zdjęcie:</label>
-                    <input type="file" id="image" name="image" class="form-control @error('image') is-invalid @enderror" value="{{ old('image') }}">
+                    <input type="file" id="image" name="image" class="form-control @error('image') is-invalid @enderror" value="{{ old('image') }}" required>
                     @if($errors->has('image'))
                         <div class="form-error">{{ $errors->first('image') }}</div>
                     @endif
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="price">Cena:</label>
-                    <input type="number" id="price" name="price" class="form-control @error('price') is-invalid @enderror" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" value="{{ old('price') }}">
+                    <input type="number" id="price" name="price" class="form-control @error('price') is-invalid @enderror" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" value="{{ old('price') }}" required>
                     @if($errors->has('price'))
                         <div class="form-error">{{ $errors->first('price') }}</div>
                     @endif

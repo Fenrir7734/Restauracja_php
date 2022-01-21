@@ -11,14 +11,14 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="first-name">Imię:</label>
-                <input type="text" id="first-name" name="first-name" class="form-control @error('first-name') is-invalid @enderror" value="{{ old('first-name') }}">
+                <input type="text" id="first-name" name="first-name" class="form-control @error('first-name') is-invalid @enderror" value="{{ old('first-name') }}" required>
                 @if($errors->has('first-name'))
                     <div class="form-error">{{ $errors->first('first-name') }}</div>
                 @endif
             </div>
             <div class="col-md-6">
                 <label for="last-name">Nazwisko:</label>
-                <input type="text" id="last-name" name="last-name" class="form-control @error('last-name') is-invalid @enderror" value="{{ old('last-name') }}">
+                <input type="text" id="last-name" name="last-name" class="form-control @error('last-name') is-invalid @enderror" value="{{ old('last-name') }}" required>
                 @if($errors->has('last-name'))
                     <div class="form-error">{{ $errors->first('last-name') }}</div>
                 @endif
@@ -27,14 +27,14 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="mail">Email:</label>
-                <input type="email" id="mail" name="mail" class="form-control @error('mail') is-invalid @enderror" value="{{ old('mail') }}">
+                <input type="email" id="mail" name="mail" class="form-control @error('mail') is-invalid @enderror" value="{{ old('mail') }}" required>
                 @if($errors->has('mail'))
                     <div class="form-error">{{ $errors->first('mail') }}</div>
                 @endif
             </div>
             <div class="col-md-6">
                 <label for="phone">Telefon:</label>
-                <input type="text" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
+                <input type="text" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" required>
                 @if($errors->has('phone'))
                     <div class="form-error">{{ $errors->first('phone') }}</div>
                 @endif
@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-md-4">
                 <label for="booking-date">Data:</label>
-                <input type="date" id="booking-date" name="booking-date" class="form-control @error('date') is-invalid @enderror" value="{{ old('booking-date') }}">
+                <input type="date" id="booking-date" name="booking-date" class="form-control @error('date') is-invalid @enderror" value="{{ old('booking-date') }}" required>
                 @if($errors->has('booking-date'))
                     <div class="form-error">{{ $errors->first('booking-date') }}</div>
                 @endif
@@ -72,7 +72,7 @@
             @endif
             <div class="col-md-4">
                 <label for="people">Liczba osób:</label>
-                <input type="number" id="people" name="people" class="form-control @error('people') is-invalid @enderror" value="{{ old('people') }}">
+                <input type="number" id="people" name="people" class="form-control @error('people') is-invalid @enderror" value="{{ old('people') }}" required>
                 @if($errors->has('people'))
                     <div class="form-error">{{ $errors->first('people') }}</div>
                 @endif

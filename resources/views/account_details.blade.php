@@ -31,7 +31,7 @@
                         <label class="align-middle" for="password">Aktualne Hasło:</label>
                     </div>
                     <div class="col-lg-8 col-md-12 align-content-center">
-                        <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror">
+                        <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
                         @if($errors->has('password'))
                                 <div class="form-error">{{ $errors->first('password') }}</div>
                         @endif
@@ -42,7 +42,7 @@
                         <label class="align-middle" for="new_password">Nowe hasło:</label>
                     </div>
                     <div class="col-lg-8 align-content-center">
-                        <input type="password" id="new_password" name="new_password" class="form-control @error('new_password') is-invalid @enderror">
+                        <input type="password" id="new_password" name="new_password" class="form-control @error('new_password') is-invalid @enderror" required>
                         @if($errors->has('new_password'))
                             <div class="form-error">{{ $errors->first('new_password') }}</div>
                         @endif
@@ -53,7 +53,7 @@
                         <label class="align-middle" for="new_password_again">Powtórz hasło:</label>
                     </div>
                     <div class="col-lg-8 col-md-12 align-content-center">
-                        <input type="password" id="new_password_again" name="new_password_again" class="form-control @error('new_password') is-invalid @enderror">
+                        <input type="password" id="new_password_again" name="new_password_again" class="form-control @error('new_password') is-invalid @enderror" required>
                     </div>
                 </div>
                 <div style="" class="form-error">

@@ -6,9 +6,50 @@
             Zamówienia
         </h2>
     </header>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-lg-3 col-md-12">
+            <label for="filter" class="col-form-label">Filtruj: </label>
+            <div class="col-sm-12">
+                <select name="filter" id="filter" class="filter form-control" onchange="window.location.href=this.options[this.selectedIndex].value;">
+                    <option value="{{ route('order-preview', ['filter' => '0', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 0) selected @endif>Wszystkie</option>
+                    <option value="{{ route('order-preview', ['filter' => '1', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 1) selected @endif>Nowe</option>
+                    <option value="{{ route('order-preview', ['filter' => '2', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 2) selected @endif>W realizacji</option>
+                    <option value="{{ route('order-preview', ['filter' => '3', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 3) selected @endif>Wysłane</option>
+                    <option value="{{ route('order-preview', ['filter' => '4', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 4) selected @endif>Zakończone</option>
+                    <option value="{{ route('order-preview', ['filter' => '5', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 5) selected @endif>Zwrócone</option>
+                    <option value="{{ route('order-preview', ['filter' => '6', 'sort' => request()->get('sort'), 'direction' =>  request()->get('direction')]) }}" @if(request()->get('filter') == 6) selected @endif>Anulowane</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12"></div>
+        <div class="col-lg-3 col-md-12">
+            <label for="sort" class="col-form-label">Sortuj: </label>
+            <div class="col-sm-12">
+                <select name="sort" id="sort" class="sort form-control" onchange="window.location.href=this.options[this.selectedIndex].value;">
+                    <option value="{{ route('order-preview', ['filter' => request()->get('filter'), 'sort' => 'ordered_at', 'direction' => 'desc']) }}" @if(request()->get('sort') == 'ordered_at' && request()->get('direction') == 'desc') selected @endif>Od najnowszego</option>
+                    <option value="{{ route('order-preview', ['filter' => request()->get('filter'), 'sort' => 'ordered_at', 'direction' => 'asc']) }}" @if(request()->get('sort') == 'ordered_at' && request()->get('direction') == 'asc') selected @endif>Od najstarszego</option>
+                    <option value="{{ route('order-preview', ['filter' => request()->get('filter'), 'sort' => 'amount', 'direction' => 'desc']) }}" @if(request()->get('sort') == 'amount' && request()->get('direction') == 'desc') selected @endif>Od najdroższego</option>
+                    <option value="{{ route('order-preview', ['filter' => request()->get('filter'), 'sort' => 'amount', 'direction' => 'asc']) }}" @if(request()->get('sort') == 'amount' && request()->get('direction') == 'asc') selected @endif>Od najtańszego</option>
+                </select>
+            </div>
+        </div>
+    </div>
     <div id="cart">
-        @if($orders)
-            <table class="table" style="color: white">
+        <table class="table cart-table align-middle order-history" style="color: white">
+            <tr>
+                <th>
+                    Nazwa
+                </th>
+                <th>
+                    Data
+                </th>
+                <th>
+                    Cena
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        @if(isset($orders) && $orders->count() > 0)
                 @foreach($orders as $order)
                     <tr>
                         <td>
@@ -28,14 +69,19 @@
                         </td>
                     </tr>
                 @endforeach
-            </table>
 
         @else
-            <h2 style="min-height: 30%">Brak</h2>
+                <tr style="height: 200px; text-align: center">
+                    <td colspan="5">
+                        <h2>Brak zamówień</h2>
+                    </td>
+                </tr>
         @endif
+            </table>
+
         @if($orders)
             <div class="col-lg-3 col-md-6" style="height: 50px">
-                {{ $orders->links("pagination::custom") }}
+                {{ $orders->appends($_GET)->links("pagination::custom") }}
             </div>
         @endif
     </div>

@@ -11,8 +11,30 @@ class ProductsController extends Controller
 
     public function index()
     {
-        $products = Product::orderBy('id', 'asc')->paginate(10);
-        return view('/admin/products_preview', ['products' => $products]);
+        $p_filters = Category::pluck('id')->toArray();
+        array_push($p_filters, '-1');
+        $p_sort = ['name', 'id'];
+        $p_direction = ['asc', 'desc'];
+
+        if (!in_array(\request()->get('filter'), $p_filters) ||
+            !in_array(\request()->get('sort'), $p_sort) ||
+            !in_array(\request()->get('direction'), $p_direction)) {
+            return redirect()->route('admin-products-preview', ['filter' => '-1', 'sort' => 'id', 'direction' => 'asc']);
+        }
+
+        $filter = \request()->get('filter') != '-1' ? ['category_id', '=', \request()->get('filter')] : ['category_id', '!=', '-1'];
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
+
+        $products = Product::where([
+            $filter
+        ])
+            ->orderBy($sort, $direction)
+            ->paginate(10);
+
+        //$products = Product::orderBy('id', 'asc')->paginate(10);
+        $categories = Category::get();
+        return view('/admin/products_preview', ['products' => $products, 'categories' => $categories, 'filters' => $p_filters]);
     }
 
     public function create()

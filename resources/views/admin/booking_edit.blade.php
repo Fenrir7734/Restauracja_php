@@ -12,14 +12,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="first-name">Imię:</label>
-                    <input type="text" id="first-name" name="first-name" class="form-control @error('first-name') is-invalid @enderror" value="{{ $booking->first_name }}">
+                    <input type="text" id="first-name" name="first-name" class="form-control @error('first-name') is-invalid @enderror" value="{{ $booking->first_name }}" required>
                     @if($errors->has('first-name'))
                         <div class="form-error">{{ $errors->first('first-name') }}</div>
                     @endif
                 </div>
                 <div class="col-md-6">
                     <label for="last-name">Nazwisko:</label>
-                    <input type="text" id="last-name" name="last-name" class="form-control @error('last-name') is-invalid @enderror" value="{{ $booking->last_name }}">
+                    <input type="text" id="last-name" name="last-name" class="form-control @error('last-name') is-invalid @enderror" value="{{ $booking->last_name }}" required>
                     @if($errors->has('last-name'))
                         <div class="form-error">{{ $errors->first('last-name') }}</div>
                     @endif
@@ -28,14 +28,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="mail">Email:</label>
-                    <input type="email" id="mail" name="mail" class="form-control @error('mail') is-invalid @enderror" value="{{ $booking->email }}">
+                    <input type="email" id="mail" name="mail" class="form-control @error('mail') is-invalid @enderror" value="{{ $booking->email }}" required>
                     @if($errors->has('mail'))
                         <div class="form-error">{{ $errors->first('mail') }}</div>
                     @endif
                 </div>
                 <div class="col-md-6">
                     <label for="phone">Telefon:</label>
-                    <input type="text" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ $booking->phone }}">
+                    <input type="text" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ $booking->phone }}" required>
                     @if($errors->has('phone'))
                         <div class="form-error">{{ $errors->first('phone') }}</div>
                     @endif
@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <label for="booking-date">Data:</label>
-                    <input type="datetime-local" id="booking-date" name="booking-date" class="form-control @error('date') is-invalid @enderror" value="{{ substr($booking->booking_on_date, 0, 10) . "T" . substr($booking->booking_on_date, 11) }}">
+                    <input type="datetime-local" id="booking-date" name="booking-date" class="form-control @error('date') is-invalid @enderror" value="{{ substr($booking->booking_on_date, 0, 10) . "T" . substr($booking->booking_on_date, 11) }}" required>
                     @if($errors->has('booking-date'))
                         <div class="form-error">{{ $errors->first('booking-date') }}</div>
                     @endif

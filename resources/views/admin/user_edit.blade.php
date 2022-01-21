@@ -12,14 +12,14 @@
             <div class="row">
                 <div class="col-md-6 col-12">
                     <label for="name">Nazwa:</label>
-                    <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name }}">
+                    <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name }}" required>
                     @if($errors->has('name'))
                         <div class="form-error">{{ $errors->first('name') }}</div>
                     @endif
                 </div>
                 <div class="col-md-6 col-12">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email }}">
+                    <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email }}" required>
                     @if($errors->has('email'))
                         <div class="form-error">{{ $errors->first('email') }}</div>
                     @endif

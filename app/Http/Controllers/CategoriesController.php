@@ -10,7 +10,20 @@ class CategoriesController extends Controller
 
     public function index()
     {
-        $categories = Category::orderBy('id', 'asc')->paginate(10);
+        $p_sort = ['name', 'id'];
+        $p_direction = ['asc', 'desc'];
+
+        if (!in_array(\request()->get('sort'), $p_sort) ||
+            !in_array(\request()->get('direction'), $p_direction)) {
+            return redirect()->route('admin-categories-preview', ['sort' => 'id', 'direction' => 'asc']);
+        }
+
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
+
+        $categories = Category::orderBy($sort, $direction)
+            ->orderBy('name', 'asc')
+            ->paginate(10);
         return view('/admin/categories_preview', ['categories' => $categories]);
     }
 

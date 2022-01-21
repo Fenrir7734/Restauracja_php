@@ -7,7 +7,7 @@
         </h2>
     </header>
     <div id="cart">
-        <form class="row" style="margin-top: 20px" action="{{ route('order-filter') }}">
+        <div class="row" style="margin-top: 20px">
             <div class="col-lg-3 col-md-12">
                 <label for="filter" class="col-form-label">Filtruj: </label>
                 <div class="col-sm-12">
@@ -34,7 +34,7 @@
                     </select>
                 </div>
             </div>
-        </form>
+        </div>
         <table class="table cart-table align-middle order-history">
             <tr>
                 <th>
@@ -48,7 +48,7 @@
                 </th>
                 <th></th>
             </tr>
-            @if($orders && count($orders) > 0)
+            @if(isset($orders) && $orders->count() > 0)
                 @foreach($orders as $order)
                     <tr data-id="{{ $order->id }}">
                         <td>
