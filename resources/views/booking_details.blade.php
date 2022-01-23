@@ -70,7 +70,6 @@
                         @endswitch
                     </p>
                 </div>
-
             </div>
         </div>
         <div class="row justify-content-center align-content-center mp-side-zero order-details-container">
