@@ -6,60 +6,67 @@ use App\Models\Address;
 use App\Models\Cart;
 use App\Models\CartContent;
 use App\Models\Product;
+use App\Models\User;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('order');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create($filter, $sort)
-    {
-        $filterStatement = ['status', '!=', $filter];
-        if ($filter === '1' || $filter == '2' || $filter == '3' || $filter == '4') {
-            $filterStatement = ['status', '=', $filter];
+    public function index_preview() {
+        $p_filters = ['0', '1', '2', '3', '4', '5', '6'];
+        $p_sort = ['ordered_at', 'amount'];
+        $p_direction = ['asc', 'desc'];
+
+        if (!in_array(\request()->get('filter'), $p_filters) ||
+            !in_array(\request()->get('sort'), $p_sort) ||
+            !in_array(\request()->get('direction'), $p_direction)) {
+            return redirect()->route('order-preview', ['filter' => '0', 'sort' => 'ordered_at', 'direction' => 'desc']);
         }
 
-        $sortRow = 'ordered_at';
-        $sortDirection = 'desc';
-        if ($sort === '1') {
-            $sortRow = 'ordered_at';
-            $sortDirection = 'asc';
-        } else if ($sort === '2') {
-            $sortRow = 'amount';
-            $sortDirection = 'desc';
-        } else if ($sort === '3') {
-            $sortRow = 'amount';
-            $sortDirection = 'asc';
+        $filter = \request()->get('filter') != '0' ? ['status', '=', \request()->get('filter')] : ['status', '!=', '0'];
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
+
+        $cart = DB::table('cart')
+            ->join('address', 'address.id', '=', 'cart.address_id')
+            ->select('cart.id', 'address.first_name', 'address.last_name', 'cart.status', 'cart.ordered_at', 'cart.amount')
+            ->where([$filter])
+            ->orderBy($sort, $direction)
+            ->paginate(10);
+        return view('/admin/order_preview', ['orders' => $cart]);
+    }
+
+    public function create() {
+        $p_filters = ['0', '1', '2', '3', '4', '5', '6'];
+        $p_sort = ['ordered_at', 'amount'];
+        $p_direction = ['asc', 'desc'];
+
+        if (!in_array(\request()->get('filter'), $p_filters) ||
+            !in_array(\request()->get('sort'), $p_sort) ||
+            !in_array(\request()->get('direction'), $p_direction)) {
+            return redirect()->route('history-order', ['filter' => '0', 'sort' => 'ordered_at', 'direction' => 'desc']);
         }
+
+        $filter = \request()->get('filter') != '0' ? ['status', '=', \request()->get('filter')] : ['status', '!=', '0'];
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
 
         $cart = Cart::where([
             ['user_id', '=' ,\Auth::user()->id],
-            $filterStatement
+            $filter
         ])
-            ->orderBy($sortRow, $sortDirection)
-            ->get();
+            ->orderBy($sort, $direction)
+            ->paginate(10);
         return view('order_history', ['orders' => $cart]);
-    }
-
-    public function filter(Request $request) {
-        echo "<script>console.log('tu')</script>";
-        return \redirect()->route('history-order', ['filter' =>$request->filter, 'sort' => $request->sort]);
     }
 
     public function content($id) {
@@ -84,12 +91,6 @@ class OrderController extends Controller
             ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -158,7 +159,7 @@ class OrderController extends Controller
             return redirect('login');
         }
 
-        $address = $this->buildAddress($request);
+        $address = $this->buildAddressFromRequest($request);
         if (!$address->save()) {
             return \redirect('error');
         }
@@ -174,17 +175,17 @@ class OrderController extends Controller
                 return \redirect('error');
             }
         }
-
+        session()->remove('cart');
         return redirect()->route('order-complete');
     }
 
-    private function buildAddress(Request $request) {
+    private function buildAddress(Request $request, Address $address) {
         $phone = str_replace("-", "",$request->get('phone'));
         if (str_starts_with($phone, "+")) {
             $phone = substr($phone, 3);
         }
 
-        $address = new Address();
+        //$address = new Address();
         $address->user_id = \Auth::user()->id;
         $address->first_name = $request->get('first-name');
         $address->last_name = $request->get('last-name');
@@ -198,6 +199,10 @@ class OrderController extends Controller
         return $address;
     }
 
+    private function buildAddressFromRequest(Request $request) {
+        return $this->buildAddress($request, new Address());
+    }
+
     private function buildCart(Request $request) {
         $cartFromSession = session()->get('cart', []);
 
@@ -205,12 +210,18 @@ class OrderController extends Controller
         foreach ($cartFromSession as $id => $content) {
             $amount += $content[$id]['total_price'];
         }
+
+        $tz = 'Europe/Warsaw';
+        $timestamp = time();
+        $dt = new DateTime("now", new DateTimeZone($tz));
+        $dt->setTimestamp($timestamp);
+
         $cart = new Cart();
         $cart->user_id = \Auth::user()->id;
         $cart->description = $request->note;
         $cart->status = 1;
         $cart->amount = $amount;
-        $cart->ordered_at = date("Y-m-d h:m:s");
+        $cart->ordered_at = $dt->format("Y-m-d H:m:s");
         return $cart;
     }
 
@@ -222,48 +233,173 @@ class OrderController extends Controller
         return $c;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $cart = DB::table('cart')
+            ->join('address', 'address.id', '=', 'cart.address_id')
+            ->join('users', 'users.id', '=', 'cart.user_id')
+            ->where('cart.id', $id)
+            ->select(
+                'cart.id', 'cart.user_id', 'cart.address_id' ,'cart.description', 'cart.status', 'cart.amount',
+                'cart.ordered_at', 'cart.delivered_at', 'address.first_name', 'address.last_name', 'address.street',
+                'address.house', 'address.flat', 'address.post_code', 'address.city', 'address.phone', 'users.email'
+            )
+            ->get();
+        $content = DB::table("cart_content")
+            ->join('products', 'products.id', '=', 'cart_content.product_id')
+            ->where('cart_id', $id)
+            ->select(
+                'cart_content.id', 'cart_content.cart_id', 'cart_content.quantity' , 'cart_content.amount',
+                'products.name', 'products.price'
+            )
+            ->get();
+        return view('/admin/order_edit', ['cart' => $cart[0], 'contents' => $content]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $validator1 = $this->makeValidator($request);
+        $validator2 = Validator::make($request->all(),[
+            'order-date' => [
+                'required',
+                'date',
+                'date_format:Y-m-d\TH:i:s'
+            ],
+            'delivery-date' => [
+                'nullable',
+                'date',
+                'after:order-date',
+                'date_format:Y-m-d\TH:i:s'
+            ]
+        ]);
+        $validator1->validate();
+        $validator2->validate();
+
+        $cart = Cart::find($id);
+        $address = Address::find($cart->address_id);
+        $address = $this->buildAddress($request, $address);
+        $cart->delivered_at = $request->status != 4 && $request->status != 5 ? null : $request->get('delivery-date');
+        $cart->status = $request->status;
+        $cart->description = $request->note;
+        if ($address->save() && $cart->save()) {
+            return redirect()->back();
+        }
+        return redirect('error');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function updateContent(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'quantity' => [
+                'required',
+                'digits_between:1,99'
+            ]
+        ]);
+
+        if ($validator->fails()) {
+            session()->put(['err' => "Liczba musi być pomiędzy 1 a 99"]);
+            return;
+        }
+
+        $content = CartContent::find($request->id);
+        $content->quantity = $request->quantity;
+        $product = Product::find($content->product_id);
+        $content->amount = $content->quantity * $product->price;
+        if ($content->save()) {
+            $cart = Cart::find($request->cart_id);
+            $all_content = DB::table('cart_content')
+                ->where('cart_id', $request->cart_id)
+                ->get();
+            $sum = 0;
+            foreach ($all_content as $c) {
+                $sum += $c->amount;
+            }
+            $cart->amount = $sum;
+            $cart->save();
+        }
+    }
+
     public function destroy($id)
     {
-        //
+        $order = Cart::find($id);
+
+        if ($order->delete()) {
+            return redirect()->route('order-preview');
+        }
+        return redirect('error');
+    }
+
+    public function removeFromOrder($content_id, $cart_id) {
+        $content = CartContent::find($content_id);
+        if ($content->delete()) {
+            $cart = Cart::find($cart_id);
+            $cart->amount = $cart->amount - $content->amount;
+            if ($cart->save()) {
+                return redirect()->back();
+            }
+        }
+        return redirect('error');
+    }
+
+    private function makeValidator(Request $request) {
+        return Validator::make($request->all(), [
+            'first-name' => [
+                'required',
+                'min:3',
+                'max:40',
+                'regex:/^[A-ZĘĄŚŁŻŹĆŃÓ][ a-zA-ZęąśłżźćńóĘĄŚŁŻŹĆŃÓ]{1,20}$/'
+            ],
+            'last-name' =>  [
+                'required',
+                'min:3',
+                'max:40',
+                'regex:/^[A-ZĘĄŚŁŻŹĆŃÓ][ a-zA-ZęąśłżźćńóĘĄŚŁŻŹĆŃÓ-]{1,40}$/'
+            ],
+            'street' => [
+                'required',
+                'min:3',
+                'max:40',
+                'regex:/^[0-9A-ZĘĄŚŁŻŹĆŃÓ][ 0-9a-zA-ZęąśłżźćńóĘĄŚŁŻŹĆŃÓ-]{1,40}$/'
+            ],
+            'house' => [
+                'required',
+                'min:3',
+                'max:4',
+                'regex:/^\d{1,5}\w{0,4}$/'
+            ],
+            'flat' => [
+                'nullable',
+                'integer',
+                'min: 1',
+                'max:9999',
+                'regex:/^[0-9]{0,3}$/'
+            ],
+            'postcode' => [
+                'required',
+                'min:5',
+                'max:6',
+                'regex:/^([0-9]{2}-[0-9]{3})|[0-9]{5}$/'
+            ],
+            'mail' => [
+                'required',
+                'max:255',
+                'email'
+            ],
+            'phone' => [
+                'required',
+                'min:9',
+                'regex:/^(\+[0-9]{2})?[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{3}$/'
+            ],
+            'city' => [
+                'required',
+                'min:3',
+                'max:40',
+                'regex:/^[0-9A-ZĘĄŚŁŻŹĆŃÓ][ 0-9a-zA-ZęąśłżźćńóĘĄŚŁŻŹĆŃÓ-]{1,40}$/'
+            ]
+        ]);
     }
 }

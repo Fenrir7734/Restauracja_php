@@ -74,7 +74,19 @@
                         </div>
                     </div>
                 @endforeach
-                <script type="text/javascript">
+                    @if(session()->has('err'))
+                        <div id="noterr" class="notification notification-error" style="display: block; opacity: 1">
+                            <p class="notification-message">{{ session()->get('err') }}</p>
+                        </div>
+                        {{ session()->remove('err') }}
+                    @endif
+                    @if(session()->has('msg'))
+                        <div id="notmsg" class="notification notification-error" style="display: block; opacity: 1; background-color: green">
+                            <p class="notification-message">{{ session()->get('msg') }}</p>
+                        </div>
+                        {{ session()->remove('msg') }}
+                    @endif
+                <script>
                     $('.add-to-cart').click(function (event) {
                         event.preventDefault();
                         var element = $(this);
@@ -91,12 +103,36 @@
                                 window.location.reload();
                             }
                         })
-                    })
+                    });
+
+
+                    var noterror = document.getElementById('noterr');
+                    if (noterror) {
+                        noterror.addEventListener('click', () => {
+                            noterror.style.opacity = "0";
+                            setTimeout(function () {
+                                noterror.style.display = "none";
+                            }, 500);
+                        });
+                    }
+
+                    var notemessage = document.getElementById('notmsg');
+                    if (notemessage) {
+                        notemessage.addEventListener('click', () => {
+                            notemessage.style.opacity = "0";
+                            setTimeout(function () {
+                                notemessage.style.display = "none";
+                            }, 500);
+                        });
+                    }
+
                 </script>
             @else
                 <div class="d-flex justify-content-center align-items-center" style="height: 50vh">
                     <h2>Brak dostępnych produktów</h2>
                 </div>
             @endif
+
         </div>
+    </main>
 @endsection
