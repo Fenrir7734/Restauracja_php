@@ -25,8 +25,8 @@
                 <label for="sort" class="col-form-label">Sortuj: </label>
                 <div class="col-sm-12">
                     <select name="sort" id="sort" class="sort form-control" onchange="window.location.href=this.options[this.selectedIndex].value;">
-                        <option value="{{ route('preview-admin-booking', ['filter' => request()->get('filter'), 'sort' => 'id', 'direction' => 'asc']) }}" @if(request()->get('sort') == 'booking_on_date' && request()->get('direction') == 'asc') selected @endif>ID rosnąco</option>
-                        <option value="{{ route('preview-admin-booking', ['filter' => request()->get('filter'), 'sort' => 'id', 'direction' => 'desc']) }}" @if(request()->get('sort') == 'booking_on_date' && request()->get('direction') == 'desc') selected @endif>ID malejąco</option>
+                        <option value="{{ route('preview-admin-booking', ['filter' => request()->get('filter'), 'sort' => 'id', 'direction' => 'asc']) }}" @if(request()->get('sort') == 'id' && request()->get('direction') == 'asc') selected @endif>ID rosnąco</option>
+                        <option value="{{ route('preview-admin-booking', ['filter' => request()->get('filter'), 'sort' => 'id', 'direction' => 'desc']) }}" @if(request()->get('sort') == 'id' && request()->get('direction') == 'desc') selected @endif>ID malejąco</option>
                         <option value="{{ route('preview-admin-booking', ['filter' => request()->get('filter'), 'sort' => 'booking_on_date', 'direction' => 'desc']) }}" @if(request()->get('sort') == 'booking_on_date' && request()->get('direction') == 'desc') selected @endif>Od najnowszego</option>
                         <option value="{{ route('preview-admin-booking', ['filter' => request()->get('filter'), 'sort' => 'booking_on_date', 'direction' => 'asc']) }}" @if(request()->get('sort') == 'booking_on_date' && request()->get('direction') == 'asc') selected @endif>Od najstarszego</option>
                     </select>

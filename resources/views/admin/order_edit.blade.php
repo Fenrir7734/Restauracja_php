@@ -22,7 +22,7 @@
                 </tr>
             @endforeach
                 <tr>
-                    <td class="cart-table-sum" colspan="2">Suma:</td>
+                    <td class="cart-table-sum">Suma:</td>
                     <td class="cart-table-price">{{ $cart->amount }} zł</td>
                 </tr>
         </table>

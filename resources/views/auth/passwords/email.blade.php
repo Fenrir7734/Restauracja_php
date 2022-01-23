@@ -6,7 +6,7 @@
             Reset hasła
         </h2>
     </header>
-    <article class="">
+    <div class="">
         @if (session('status'))
             <div class="alert alert-success" role="alert" style="margin-top: 5px">
                 Wysłaliśmy do ciebie wiadomość z linkiem do resetu hasła
@@ -25,5 +25,5 @@
                 <input type="submit" id="booking-submit-button" class="form-control input-submit" value="Zresetuj" style="margin-bottom: 10px;">
             </div>
         </form>
-    </article>
+    </div>
 @endsection

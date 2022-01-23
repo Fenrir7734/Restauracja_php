@@ -93,5 +93,4 @@
             </div>
         @endif
     </div>
-    </div>
 @endsection
