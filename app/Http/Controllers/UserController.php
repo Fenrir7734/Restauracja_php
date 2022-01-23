@@ -91,7 +91,7 @@ class UserController extends Controller
         $dt = new DateTime("now", new DateTimeZone($tz));
         $dt->setTimestamp($timestamp);
 
-        $user->email_verified_at = $dt->format("Y-m-d H:m:s");
+        $user->email_verified_at = $dt->format("Y-m-d H:i:s");
 
         if ($user->save()) {
             return redirect()->back()->with(['msg' => "Konto zostało zweryfikowane"]);

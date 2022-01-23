@@ -185,7 +185,6 @@ class OrderController extends Controller
             $phone = substr($phone, 3);
         }
 
-        //$address = new Address();
         $address->user_id = \Auth::user()->id;
         $address->first_name = $request->get('first-name');
         $address->last_name = $request->get('last-name');
@@ -221,7 +220,7 @@ class OrderController extends Controller
         $cart->description = $request->note;
         $cart->status = 1;
         $cart->amount = $amount;
-        $cart->ordered_at = $dt->format("Y-m-d H:m:s");
+        $cart->ordered_at = $dt->format("Y-m-d H:i:s");
         return $cart;
     }
 
@@ -231,11 +230,6 @@ class OrderController extends Controller
         $c->quantity = $content[$productId]['quantity'];
         $c->amount = $content[$productId]['total_price'];
         return $c;
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)
