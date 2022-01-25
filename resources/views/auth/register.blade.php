@@ -19,14 +19,14 @@
             <div class="form-group col-md-12">
                 <label for="email">Adres e-mail</label>
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-                @if($errors->has('password'))
+                @if($errors->has('email'))
                     <div class="form-error">{{ $errors->first('email') }}</div>
                 @endif
             </div>
             <div class="form-group col-md-12">
                 <label for="password">Hasło</label>
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                @if($errors->has('email'))
+                @if($errors->has('password'))
                     <div class="form-error">{{ $errors->first('password') }}</div>
                 @endif
             </div>

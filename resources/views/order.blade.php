@@ -112,7 +112,7 @@
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-lg-3 col-md-6 col-sm-12">
-                        <input type="button" class="btn form-control input-submit" value="Anuluj">
+                        <a class="btn form-control input-submit" href="{{ route('cart') }}">Anuluj</a>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <button type="submit" class="btn form-control input-submit">Zamów</button>
