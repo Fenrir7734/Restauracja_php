@@ -1,15 +1,13 @@
 <?php
 
-use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use \App\Http\Controllers\CartController;
 use \App\Http\Controllers\OrderController;
 use \App\Http\Controllers\Auth\LoginController;
 use \App\Http\Controllers\Auth\RegisterController;
-use \App\Http\Controllers\AddressesController;
-use \App\Http\Controllers\AdminPanelController;
 use \App\Http\Controllers\CategoriesController;
 use \App\Http\Controllers\ProductsController;
 use \App\Http\Controllers\BookingController;
@@ -32,9 +30,23 @@ Auth::routes(['verify' => true]);
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+
 Route::get('forgot-password', function () {
     return view('auth/passwords/email');
 })->name('forgot-password');
+
+Route::get('/mail-verified', function () {
+    return view('/mail_verified');
+})->name('mail-verified');
+
+Route::get('/registration-completed', function () {
+    return view('/registration_completed');
+})->name('registration-completed');
+
+Route::get('/password-reset-completed', function () {
+    return view('/password_reset_completed');
+})->name('password-reset-completed');
+
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/create-order', [OrderController::class, 'store'])->middleware('verified')->name('store-order');
     Route::get('/index-order', [OrderController::class, 'index'])->middleware('verified')->name('create-order');
@@ -49,8 +61,6 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/admin-panel', [AdminPanelController::class, 'index'])->name('admin-panel');
-
     Route::get('/categories-create', [CategoriesController::class, 'create'])->name('create-category');
     Route::post('/categories-store', [CategoriesController::class, 'store'])->name('store-category');
     Route::get('/categories-preview', [CategoriesController::class, 'index'])->name('admin-categories-preview');
@@ -86,6 +96,14 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin-order-remove-content/{id}/{cart_id}', [OrderController::class, 'removeFromOrder'])->name('order-remove-content');
 });
 
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/menu', [MenuController::class, 'index'])->name('menu');
+Route::patch('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+Route::get('/remove-all', [CartController::class, 'removeAll'])->name('remove-all');
+Route::patch('/update-cart', [CartController::class, 'updateCart'])->name('update-cart');
+Route::delete('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
+Route::get('/booking', [BookingController::class, 'create'])->name('booking-create');
+Route::post("/booking", [BookingController::class, 'store'])->name('booking-store');
 
 Route::get('/order-complete', function () {
     return view('/order_complete');
@@ -99,10 +117,10 @@ Route::get('/error', function () {
     return view('/error');
 })->name('error');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', function () {
     return view('index');
 })->name('index');
+
 Route::get('/index', function () {
     return view('index');
 })->name('index');
@@ -118,12 +136,4 @@ Route::get('/contact', function () {
 Route::get('/gallery', function () {
     return view('/gallery');
 })->name('gallery');
-
-Route::get('/menu', [MenuController::class, 'index'])->name('menu');
-Route::patch('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-Route::get('/remove-all', [CartController::class, 'removeAll'])->name('remove-all');
-Route::patch('/update-cart', [CartController::class, 'updateCart'])->name('update-cart');
-Route::delete('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
-Route::get('/booking', [BookingController::class, 'create'])->name('booking-create');
-Route::post("/booking", [BookingController::class, 'store'])->name('booking-store');
 

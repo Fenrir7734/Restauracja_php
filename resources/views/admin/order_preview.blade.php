@@ -59,7 +59,7 @@
                             {{ $order->ordered_at }}
                         </td>
                         <td>
-                            {{ $order->amount }}
+                            {{ $order->amount }} zł
                         </td>
                         <td class="cart-table-checkbox edit-category" data-th="">
                             <a class="btn btn-secondary cart-button input-submit remove-from-cart" href="{{ route('order-edit', $order->id) }}"><i class="bi bi-pencil-square"></i></a>

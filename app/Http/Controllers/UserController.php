@@ -101,7 +101,7 @@ class UserController extends Controller
 
     public function resetPassword($id) {
         if($id == auth()->user()->id) {
-            return redirect()->back()->withErrors(['msg' => "Nie możesz zweryfikować swojego własnego konta"]);
+            return redirect()->back()->withErrors(['msg' => "Nie możesz zresetować hasła do swojego konta"]);
         }
 
         $user = User::find($id);
